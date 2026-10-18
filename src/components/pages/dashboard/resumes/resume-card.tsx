@@ -13,7 +13,7 @@ export function ResumeCardButton({ title, description, icon }: ResumeCardButtonP
     <div
       className={cn(
         'relative flex h-75 w-full items-center justify-center overflow-hidden rounded border border-muted-foreground/20',
-        'bg-muted/50 outline-none transition-all hover:brightness-105 dark:hover:brightness-125'
+        'cursor-pointer bg-muted/50 outline-none transition-all hover:brightness-105 dark:hover:brightness-125'
       )}
     >
       {icon}
