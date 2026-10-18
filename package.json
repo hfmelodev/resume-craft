@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
+    "@svgr/webpack": "^8.1.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
