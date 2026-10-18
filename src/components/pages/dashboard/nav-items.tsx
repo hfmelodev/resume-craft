@@ -34,12 +34,17 @@ export function NavItems() {
         const isActive = pathname.startsWith(item.path)
 
         return (
-          <Link key={item.path} href={item.path}>
-            <Button variant="ghost" className={cn('w-full justify-start gap-2', isActive && 'bg-accent text-accent-foreground')}>
+          <Button
+            key={item.path}
+            asChild
+            variant="ghost"
+            className={cn('w-full justify-start gap-2', isActive && 'bg-accent text-accent-foreground')}
+          >
+            <Link href={item.path} aria-current={isActive ? 'page' : undefined}>
               <item.icon />
               {item.label}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         )
       })}
     </nav>
