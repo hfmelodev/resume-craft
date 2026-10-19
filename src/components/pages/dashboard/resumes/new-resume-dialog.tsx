@@ -48,7 +48,7 @@ export function NewResumeDialog(props: BaseDialogProps) {
               ) : (
                 <FilePlus data-icon="inline-start" />
               )}
-              <span className="[text-box:trim-both_cap_alphabetic]">{isSubmitting ? 'Criando...' : 'Criar'}</span>
+              <span className="[text-box:trim-both_cap_alphabetic]">{isSubmitting ? 'Criando...' : 'Criar currículo'}</span>
             </Button>
           </form>
         </FormProvider>
