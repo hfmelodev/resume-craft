@@ -6,23 +6,15 @@ type SwitchFieldProps<T extends FieldValues> = ComponentProps<typeof Switch> & {
   name: Path<T>
 }
 
-export function SwitchField<T extends FieldValues>({ name, id, ...props }: SwitchFieldProps<T>) {
+export function SwitchField<T extends FieldValues>({ name, ...props }: SwitchFieldProps<T>) {
   const { control } = useFormContext<T>()
-  const switchId = id ?? name
 
   return (
     <Controller
       control={control}
       name={name}
       render={({ field, fieldState }) => (
-        <Switch
-          id={switchId}
-          aria-invalid={fieldState.invalid}
-          aria-describedby={fieldState.error ? `${switchId}-error` : undefined}
-          {...props}
-          checked={field.value}
-          onCheckedChange={field.onChange}
-        />
+        <Switch aria-invalid={fieldState.invalid} {...props} checked={field.value} onCheckedChange={field.onChange} />
       )}
     />
   )
