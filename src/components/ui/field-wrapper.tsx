@@ -1,3 +1,4 @@
+import { cn } from 'cn'
 import { Label } from './label'
 
 type FieldWrapperProps = {
@@ -5,11 +6,12 @@ type FieldWrapperProps = {
   htmlFor?: string
   error?: string
   children: React.ReactNode
+  className?: string
 }
 
-export function FieldWrapper({ label, htmlFor, error, children }: FieldWrapperProps) {
+export function FieldWrapper({ label, htmlFor, error, children, className }: FieldWrapperProps) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className={cn('flex flex-col gap-2', className)}>
       <Label htmlFor={htmlFor} className="font-semibold text-sm">
         {label}
       </Label>
