@@ -17,7 +17,7 @@ export function BasicInfoSection() {
         </div>
 
         <InputField<ResumeData> label="Nome Completo" placeholder="John Doe" name="content.infos.fullName" />
-        <InputField<ResumeData> label="Cabeçalho" placeholder="Desenvolvedor" name="content.infos.headline" />
+        <InputField<ResumeData> label="Cargo" placeholder="Desenvolvedor" name="content.infos.headline" />
         <InputField<ResumeData> label="Email" placeholder="john.doe@example.com" name="content.infos.email" />
         <InputField<ResumeData> label="Website" placeholder="https://.." name="content.infos.website" />
         <InputField<ResumeData> label="Telefone" placeholder="(11) 99999-9999" name="content.infos.phone" />

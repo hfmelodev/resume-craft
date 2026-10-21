@@ -15,6 +15,7 @@ type ResumeInfosData = {
 type ResumeContentData = {
   image: ResumeImageData
   infos: ResumeInfosData
+  summary: string
 }
 
 type ResumeData = {

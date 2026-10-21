@@ -11,7 +11,7 @@ export function ResumePage() {
     defaultValues: {
       content: {
         image: {
-          url: 'https://github.com/hfmelodev',
+          url: '',
           visible: true,
         },
         infos: {

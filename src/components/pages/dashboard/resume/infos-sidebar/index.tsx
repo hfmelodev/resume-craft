@@ -3,6 +3,7 @@ import Logo from '@/assets/logo.svg'
 import { Separator } from '@/components/ui/separator'
 import { AIGenerationDropdown } from './ai-generation-dropdown'
 import { BasicInfoSection } from './sections/basic-info'
+import { SummarySection } from './sections/summary'
 export function InfosSidebar() {
   return (
     <aside className="h-full w-full overflow-y-auto p-6">
@@ -19,6 +20,11 @@ export function InfosSidebar() {
 
       {/* COMP: Basic Info Section */}
       <BasicInfoSection />
+
+      <Separator className="my-5" />
+
+      {/* COMP: Summary Section */}
+      <SummarySection />
     </aside>
   )
 }
