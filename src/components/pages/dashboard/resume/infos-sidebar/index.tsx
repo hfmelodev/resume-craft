@@ -3,6 +3,7 @@ import Logo from '@/assets/logo.svg'
 import { Separator } from '@/components/ui/separator'
 import { AIGenerationDropdown } from './ai-generation-dropdown'
 import { BasicInfoSection } from './sections/basic-info'
+import { MultiplesSections } from './sections/multiples'
 import { SummarySection } from './sections/summary'
 export function InfosSidebar() {
   return (
@@ -25,6 +26,11 @@ export function InfosSidebar() {
 
       {/* COMP: Summary Section */}
       <SummarySection />
+
+      <Separator className="my-5" />
+
+      {/* COMP: Multiples Sections */}
+      <MultiplesSections />
     </aside>
   )
 }
