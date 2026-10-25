@@ -12,7 +12,7 @@ type FieldWrapperProps = {
 export function FieldWrapper({ label, htmlFor, error, children, className }: FieldWrapperProps) {
   return (
     <div className={cn('flex flex-col gap-2', className)}>
-      <Label htmlFor={htmlFor} className="font-semibold text-sm">
+      <Label id={htmlFor ? `${htmlFor}-label` : undefined} htmlFor={htmlFor} className="font-semibold text-sm">
         {label}
       </Label>
 
