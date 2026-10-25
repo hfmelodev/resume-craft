@@ -7,9 +7,18 @@ type InputFieldProps<T extends FieldValues> = Omit<ComponentProps<'input'>, 'nam
   label: string
   name: Path<T>
   containerClassName?: string
+  extraContent?: (value: string) => React.ReactNode
 }
 
-export function InputField<T extends FieldValues>({ label, name, id, containerClassName, ...props }: InputFieldProps<T>) {
+export function InputField<T extends FieldValues>({
+  label,
+  name,
+  id,
+  containerClassName,
+  extraContent,
+  required,
+  ...props
+}: InputFieldProps<T>) {
   const { control } = useFormContext<T>()
   const inputId = id ?? name
 
@@ -17,6 +26,9 @@ export function InputField<T extends FieldValues>({ label, name, id, containerCl
     <Controller
       control={control}
       name={name}
+      rules={{
+        required: required && 'Campo obrigatório',
+      }}
       render={({ field, fieldState }) => (
         <FieldWrapper label={label} htmlFor={inputId} error={fieldState.error?.message} className={containerClassName}>
           <Input
@@ -24,8 +36,11 @@ export function InputField<T extends FieldValues>({ label, name, id, containerCl
             aria-invalid={fieldState.invalid}
             aria-describedby={fieldState.error ? `${inputId}-error` : undefined}
             {...field}
+            value={field.value ?? ''}
             {...props}
           />
+
+          {extraContent && extraContent(field.value)}
         </FieldWrapper>
       )}
     />
