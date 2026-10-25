@@ -1,13 +1,13 @@
+import type { ComponentProps } from 'react'
 import { useDebounce } from '@/hooks/use-debounce'
 import { Input } from '../input'
 
-type IconInputProps = {
+type IconInputProps = Omit<ComponentProps<'input'>, 'value' | 'onChange'> & {
   value: string
   onChange: (value: string) => void
-  placeholder?: string
 }
 
-export function IconInput({ value, onChange, placeholder }: IconInputProps) {
+export function IconInput({ value, onChange, ...props }: IconInputProps) {
   const debouncedValue = useDebounce(value)
 
   return (
@@ -22,7 +22,7 @@ export function IconInput({ value, onChange, placeholder }: IconInputProps) {
           />
         )}
       </div>
-      <Input value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} />
+      <Input value={value} onChange={e => onChange(e.target.value)} {...props} />
     </div>
   )
 }

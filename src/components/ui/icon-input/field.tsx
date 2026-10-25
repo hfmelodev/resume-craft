@@ -13,13 +13,13 @@ type IconFieldProps<T extends FieldValues> = Omit<ComponentProps<typeof IconInpu
 export function IconField<T extends FieldValues>({
   label,
   name,
-
+  id,
   containerClassName,
   required: _required,
   ...props
 }: IconFieldProps<T>) {
   const { control } = useFormContext<T>()
-  const inputId = name
+  const inputId = id ?? name
 
   return (
     <Controller
@@ -28,6 +28,7 @@ export function IconField<T extends FieldValues>({
       render={({ field, fieldState }) => (
         <FieldWrapper label={label} htmlFor={inputId} error={fieldState.error?.message} className={containerClassName}>
           <IconInput
+            id={inputId}
             aria-invalid={fieldState.invalid}
             aria-describedby={fieldState.error ? `${inputId}-error` : undefined}
             value={field.value ?? ''}
