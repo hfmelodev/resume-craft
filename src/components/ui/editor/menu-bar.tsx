@@ -90,11 +90,11 @@ export function MenuBar({ editor }: MenuBarProps) {
     },
   ]
   return (
-    <div className="flex flex-wrap items-center border-b p-2">
+    <div className="flex flex-wrap items-center gap-0.5 border-b p-1.5">
       {ACTIONS.map(action => (
         <Tooltip key={action.label} content={action.label}>
-          <Button onClick={action.action} variant="ghost" className="h-max p-2" type="button">
-            <action.icon className="size-4" />
+          <Button onClick={action.action} variant="ghost" size="icon-sm" type="button">
+            <action.icon />
             <span className="sr-only">{action.label}</span>
           </Button>
         </Tooltip>

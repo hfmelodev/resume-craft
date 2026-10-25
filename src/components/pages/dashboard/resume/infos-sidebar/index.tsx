@@ -7,7 +7,7 @@ import { MultiplesSections } from './sections/multiples'
 import { SummarySection } from './sections/summary'
 export function InfosSidebar() {
   return (
-    <aside className="h-full w-full overflow-y-auto p-6">
+    <aside className="min-h-full w-full p-6">
       <div className="flex w-full items-center justify-between">
         <Link href="/dashboard/resumes">
           <Logo className="w-full max-w-20" />

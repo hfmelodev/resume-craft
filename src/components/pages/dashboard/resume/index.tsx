@@ -23,20 +23,7 @@ export function ResumePage() {
           location: '',
         },
         summary: '',
-        socialMedias: [
-          {
-            name: 'Instagram',
-            username: 'hfmelodev',
-            icon: '',
-            url: 'https://instagram/hfmelodev',
-          },
-          {
-            name: 'Linkedin',
-            username: 'hfmelodev',
-            icon: '',
-            url: 'https://linkedin/hfmelodev',
-          },
-        ],
+        socialMedias: [],
         experiences: [],
         educations: [],
         skills: [],

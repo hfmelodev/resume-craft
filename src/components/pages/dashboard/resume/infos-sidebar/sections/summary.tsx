@@ -26,7 +26,7 @@ export function SummarySection() {
         name="content.summary"
         render={({ field }) => (
           // COMP: Editor
-          <Editor {...field} className="mt-4 max-h-75 min-h-50" />
+          <Editor {...field} className="mt-4 max-h-75 min-h-50 text-sm" />
         )}
       />
     </div>

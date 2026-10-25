@@ -37,6 +37,11 @@ const buttonVariants = cva(
   }
 )
 
+// Remove o `null` que o cva adiciona, para o autocomplete do JSX usar `=""` em vez de `={}`
+type ButtonVariants = {
+  [K in keyof VariantProps<typeof buttonVariants>]?: NonNullable<VariantProps<typeof buttonVariants>[K]>
+}
+
 function Button({
   className,
   variant = 'default',
@@ -44,7 +49,7 @@ function Button({
   asChild = false,
   ...props
 }: React.ComponentProps<'button'> &
-  VariantProps<typeof buttonVariants> & {
+  ButtonVariants & {
     asChild?: boolean
   }) {
   const Comp = asChild ? Slot.Root : 'button'

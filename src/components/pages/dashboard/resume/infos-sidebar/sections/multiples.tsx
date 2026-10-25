@@ -1,8 +1,12 @@
 import { BicepsFlexed, BriefcaseBusiness, FileBadge2, Globe, GraduationCap, Languages, Share2 } from 'lucide-react'
+import { useState } from 'react'
 import { Fragment } from 'react/jsx-runtime'
 import { type MultipleDragItemData, MultipleDragList } from '../multiple-drag-list'
+import { ManageMultipleItemDialog } from '../multiple-drag-list/manage-multiple-item-dialog'
 
 export function MultiplesSections() {
+  const [sectionToAdd, setSectionToAdd] = useState<MultipleDragItemData | null>(null)
+
   const sectionsKeys: MultipleDragItemData[] = [
     {
       formKey: 'socialMedias',
@@ -60,9 +64,20 @@ export function MultiplesSections() {
       {sectionsKeys.map(section => (
         <Fragment key={`multiple-sections-${section.formKey}`}>
           {/* COMP: Multiple Drag List */}
-          <MultipleDragList data={section} onAdd={() => {}} onEdit={() => {}} />
+          <MultipleDragList data={section} onAdd={() => setSectionToAdd(section)} onEdit={() => {}} />
         </Fragment>
       ))}
+
+      {/* COMP: Manage Multiple Item Dialog */}
+      {sectionToAdd && (
+        <ManageMultipleItemDialog
+          data={sectionToAdd}
+          open={!!sectionToAdd}
+          setOpen={value => {
+            if (!value) setSectionToAdd(null)
+          }}
+        />
+      )}
     </div>
   )
 }
