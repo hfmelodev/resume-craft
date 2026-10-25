@@ -64,7 +64,7 @@ type ResumeProjectData = {
   date: string
   website: string
   summary: string
-  keywords: string[]
+  keywords: string
 }
 
 type ResumeContentData = {

@@ -1,16 +1,25 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { cn } from 'cn'
-import { Check } from 'lucide-react'
-import { Fragment, useMemo } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
+import { Check, Trash2 } from 'lucide-react'
+import { Fragment, useEffect, useMemo } from 'react'
+import { FormProvider, useForm, useFormContext } from 'react-hook-form'
+import { toast } from 'sonner'
+import z from 'zod'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { type BaseDialogProps, Dialog } from '@/components/ui/dialog'
 import { EditorField } from '@/components/ui/editor/field'
 import { IconField } from '@/components/ui/icon-input/field'
 import { InputField } from '@/components/ui/input/field'
-import type { MultipleDragItemData, ResumeArrayKeys } from '.'
+import { SliderField } from '@/components/ui/slider/field'
+import type { MultipleDragItemData, ResumeArrayItem, ResumeArrayKeys } from '.'
 
 type ManageMultipleItemDialogProps = BaseDialogProps & {
   data: MultipleDragItemData
+  setOpen: (open: boolean) => void
+  initialData: ResumeArrayItem | null
+  // Índice do item no array da seção; null quando está adicionando um novo
+  editIndex: number | null
 }
 
 type FormConfig<T> = {
@@ -20,7 +29,6 @@ type FormConfig<T> = {
   type?: string
   placeholder?: string
   fullWidth?: boolean
-  required?: boolean
   className?: string
 }
 
@@ -34,19 +42,77 @@ type FormConfigObject = {
   [K in ResumeArrayKeys]: FormConfig<ResumeData['content'][K][number]>[]
 }
 
+const requiredString = z.string('Campo obrigatório').trim().min(1, 'Campo obrigatório')
+const optionalString = z.string().optional()
+// Campo de URL é opcional, mas se preenchido precisa ser uma URL válida
+const optionalUrl = z.union([z.literal(''), z.url('URL inválida')]).optional()
+const level = z.number().min(0).max(5)
+
+const formSchemas = {
+  socialMedias: z.object({
+    name: requiredString,
+    username: requiredString,
+    url: optionalUrl,
+    icon: optionalString,
+  }),
+  experiences: z.object({
+    company: requiredString,
+    position: optionalString,
+    date: optionalString,
+    location: optionalString,
+    website: optionalUrl,
+    summary: optionalString,
+  }),
+  educations: z.object({
+    institution: requiredString,
+    degree: optionalString,
+    date: optionalString,
+    location: optionalString,
+    website: optionalUrl,
+    summary: optionalString,
+  }),
+  skills: z.object({
+    name: requiredString,
+    description: optionalString,
+    level,
+    keywords: optionalString,
+  }),
+  languages: z.object({
+    name: requiredString,
+    description: optionalString,
+    level,
+  }),
+  certifications: z.object({
+    name: requiredString,
+    institution: optionalString,
+    date: optionalString,
+    website: optionalUrl,
+    summary: optionalString,
+  }),
+  projects: z.object({
+    name: requiredString,
+    description: optionalString,
+    date: optionalString,
+    website: optionalUrl,
+    summary: optionalString,
+    keywords: optionalString,
+  }),
+} satisfies Record<ResumeArrayKeys, z.ZodObject>
+
+// União dos dados de todas as seções, já que o schema usado depende do formKey
+type ManageMultipleItemFormData = z.infer<(typeof formSchemas)[ResumeArrayKeys]>
+
 const formConfig: FormConfigObject = {
   socialMedias: [
     {
       label: 'Rede',
       key: 'name',
       placeholder: 'LinkedIn',
-      required: true,
     },
     {
       label: 'Usuário',
       key: 'username',
       placeholder: 'seu-usuario',
-      required: true,
     },
     {
       label: 'Site',
@@ -67,7 +133,6 @@ const formConfig: FormConfigObject = {
     {
       label: 'Empresa',
       key: 'company',
-      required: true,
     },
     {
       label: 'Posição',
@@ -100,7 +165,6 @@ const formConfig: FormConfigObject = {
     {
       label: 'Instituição',
       key: 'institution',
-      required: true,
     },
     {
       label: 'Curso',
@@ -133,7 +197,6 @@ const formConfig: FormConfigObject = {
     {
       label: 'Nome',
       key: 'name',
-      required: true,
     },
     {
       label: 'Descrição',
@@ -157,7 +220,6 @@ const formConfig: FormConfigObject = {
     {
       label: 'Nome',
       key: 'name',
-      required: true,
     },
     {
       label: 'Descrição',
@@ -174,7 +236,6 @@ const formConfig: FormConfigObject = {
     {
       label: 'Nome',
       key: 'name',
-      required: true,
     },
     {
       label: 'Instituição',
@@ -202,7 +263,6 @@ const formConfig: FormConfigObject = {
     {
       label: 'Nome',
       key: 'name',
-      required: true,
     },
     {
       label: 'Descrição',
@@ -235,12 +295,18 @@ const formConfig: FormConfigObject = {
   ],
 }
 
-export function ManageMultipleItemDialog({ data, open, setOpen }: ManageMultipleItemDialogProps) {
-  const methods = useForm()
+export function ManageMultipleItemDialog({ data, open, setOpen, initialData, editIndex }: ManageMultipleItemDialogProps) {
+  const isEditing = editIndex !== null
 
-  function onSubmit(formData: any) {
-    console.log(formData)
-  }
+  const methods = useForm<ManageMultipleItemFormData>({
+    resolver: zodResolver(formSchemas[data.formKey]),
+  })
+
+  const { setValue, getValues } = useFormContext<ResumeData>()
+
+  useEffect(() => {
+    if (initialData) methods.reset(initialData)
+  }, [initialData, methods])
 
   const formContent = useMemo(() => {
     const config = formConfig[data.formKey]
@@ -254,7 +320,6 @@ export function ManageMultipleItemDialog({ data, open, setOpen }: ManageMultiple
         label: field.label,
         containerClassName: cn(isFullWidth && 'col-span-full'),
         type: field.type,
-        required: field.required,
         placeholder: field.placeholder,
         className: field.className,
       }
@@ -264,25 +329,90 @@ export function ManageMultipleItemDialog({ data, open, setOpen }: ManageMultiple
           {fieldType === 'text' && <InputField {...inputProps} />}
           {fieldType === 'editor' && <EditorField {...inputProps} />}
           {fieldType === 'icon' && <IconField {...inputProps} />}
+          {fieldType === 'slider' && <SliderField {...inputProps} />}
+          {fieldType === 'keywords' && (
+            <InputField
+              {...inputProps}
+              extraContent={value => (
+                <div className="mt-1 flex flex-wrap gap-2">
+                  {value?.split(',').map((keyword, index) => {
+                    if (!keyword.trim()) return null
+
+                    return <Badge key={`keyword-${index}`}>{keyword}</Badge>
+                  })}
+                </div>
+              )}
+            />
+          )}
         </Fragment>
       )
     })
   }, [data.formKey])
 
+  function onDelete() {
+    if (!isEditing) return
+
+    const currentValue = getValues()
+
+    const formKey = data.formKey
+    const currentFieldValue = currentValue.content[formKey] ?? []
+
+    // Os itens não têm id, então o item é identificado pela posição no array
+    const items = [...currentFieldValue]
+    items.splice(editIndex, 1)
+
+    setValue(`content.${formKey}`, items)
+    setOpen(false)
+
+    toast.success('Item removido!', {
+      description: 'Seu currículo foi atualizado com sucesso.',
+    })
+  }
+
+  function onSubmit(formData: ManageMultipleItemFormData) {
+    const currentValue = getValues()
+
+    const formKey = data.formKey
+    const currentFieldValue = currentValue.content[formKey] ?? []
+
+    const items = [...currentFieldValue]
+
+    if (isEditing) {
+      items[editIndex] = formData
+    } else {
+      items.push(formData)
+    }
+
+    setValue(`content.${formKey}`, items)
+    setOpen(false)
+
+    toast.success(isEditing ? 'Item atualizado!' : 'Item adicionado!', {
+      description: 'Seu currículo foi atualizado com sucesso.',
+    })
+  }
+
   return (
     <Dialog
-      title="Adicionar novo item"
+      title={isEditing ? 'Editar item' : 'Adicionar novo item'}
+      className="max-h-[90vh] overflow-y-auto sm:max-w-2xl"
       open={open}
       setOpen={setOpen}
       content={
         <FormProvider {...methods}>
-          <form className="mt-2 flex flex-col" onSubmit={methods.handleSubmit(onSubmit)}>
+          <form className="mt-2 flex flex-col" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
             <div className="mb-4 grid grid-cols-2 gap-4">{formContent}</div>
 
             <div className="ml-auto flex gap-3">
+              {isEditing && (
+                <Button type="button" variant="destructive" className="w-max" onClick={onDelete}>
+                  <Trash2 />
+                  Remover
+                </Button>
+              )}
+
               <Button type="submit" className="w-max">
                 <Check />
-                Adicionar
+                {isEditing ? 'Salvar' : 'Adicionar'}
               </Button>
             </div>
           </form>

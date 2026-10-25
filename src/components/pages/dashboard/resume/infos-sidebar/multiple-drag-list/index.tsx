@@ -1,10 +1,15 @@
 import { DragDropContext, Draggable, Droppable, type DropResult } from '@hello-pangea/dnd'
+import { cn } from 'cn'
 import { GripVertical, type LucideIcon, Plus } from 'lucide-react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
+import { Tooltip } from '@/components/ui/tooltip'
 import { SectionTitle } from '../section-title'
 
 export type ResumeArrayKeys = Exclude<keyof ResumeContentData, 'image' | 'infos' | 'summary'>
+
+// Um item de qualquer seção múltipla, ex.: Partial<ResumeExperienceData>
+export type ResumeArrayItem = ResumeContentData[ResumeArrayKeys][number]
 
 export type MultipleDragItemData = {
   formKey: ResumeArrayKeys
@@ -34,20 +39,11 @@ export function MultipleDragList({ data, onAdd, onEdit }: MultipleDragListProps)
     move(source.index, destination.index)
   }
 
-  const isEmpty = fields.length === 0
-
   return (
     <div>
       <SectionTitle title={data.title} icon={data.icon} />
 
       <div className="mt-4 flex flex-col">
-        {isEmpty && (
-          <Button variant="outline" className="mb-4 flex w-full gap-2" onClick={onAdd}>
-            <Plus />
-            Adicionar item
-          </Button>
-        )}
-
         {!!fields.length && (
           <DragDropContext onDragEnd={handleDrag}>
             <Droppable droppableId={`droppable-${data.formKey}`}>
@@ -76,10 +72,16 @@ export function MultipleDragList({ data, onAdd, onEdit }: MultipleDragListProps)
                             >
                               <GripVertical />
                             </div>
-                            <div className="flex flex-1 cursor-pointer flex-col justify-center px-3 transition-all hover:bg-muted/80">
-                              <p className="font-bold font-heading text-sm">{field[titleKey]}</p>
-                              <p className="text-muted-foreground text-xs">{field[descriptionKey]}</p>
-                            </div>
+                            <Tooltip content="Clique para editar">
+                              <button
+                                type="button"
+                                onClick={() => onEdit(index)}
+                                className="flex flex-1 cursor-pointer flex-col justify-center px-3 text-left transition-all hover:bg-muted/80"
+                              >
+                                <p className="font-bold font-heading text-sm">{field[titleKey]}</p>
+                                <p className="text-muted-foreground text-xs">{field[descriptionKey]}</p>
+                              </button>
+                            </Tooltip>
                           </div>
                         )}
                       </Draggable>
@@ -91,6 +93,11 @@ export function MultipleDragList({ data, onAdd, onEdit }: MultipleDragListProps)
             </Droppable>
           </DragDropContext>
         )}
+
+        <Button variant="outline" className={cn('mb-4 flex w-full gap-2', !!fields.length && 'ml-auto w-max')} onClick={onAdd}>
+          <Plus />
+          Adicionar item
+        </Button>
       </div>
     </div>
   )
