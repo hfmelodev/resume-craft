@@ -37,6 +37,7 @@ export function TemplatesListSection() {
                     alt={template}
                     width={150}
                     height={130}
+                    loading="eager"
                   />
 
                   <div
