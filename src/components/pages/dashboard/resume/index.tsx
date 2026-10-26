@@ -31,6 +31,22 @@ export function ResumePage() {
         certifications: [],
         projects: [],
       },
+      structure: {
+        template: 'ditto',
+        colorTheme: 'slate',
+        language: 'portuguese',
+        layout: {
+          mainSections: [
+            { key: 'socialMedias' },
+            { key: 'summary' },
+            { key: 'experiences' },
+            { key: 'educations' },
+            { key: 'certifications' },
+            { key: 'projects' },
+          ],
+          sidebarSections: [{ key: 'languages' }, { key: 'skills' }],
+        },
+      },
     },
   })
 
