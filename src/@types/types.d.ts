@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/correctness/noUnusedVariables: <false positive> */
+
 type ResumeImageData = {
   url: string
   visible: boolean
@@ -95,7 +97,7 @@ type ResumeLayoutSection = {
   key: ResumeSections
 }
 
-type ResumeTemplates = 'eevee' | 'onix' | 'jynx' | 'ditto'
+type ResumeTemplates = 'eevee' | 'onix' | 'kicks' | 'ditto'
 type ResumeLanguages = 'english' | 'spanish' | 'french' | 'german' | 'italian' | 'portuguese'
 type ResumeStructureData = {
   template: ResumeTemplates

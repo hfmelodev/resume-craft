@@ -1,6 +1,6 @@
 import { Draggable } from '@hello-pangea/dnd'
 import { GripVertical } from 'lucide-react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 
 type LayoutDragListProps = {
   title: string
@@ -74,10 +74,12 @@ const labels: Record<ResumeSections, Record<ResumeLanguages, string>> = {
   },
 }
 
-export function LayoutDragList({ title, fields }: LayoutDragListProps) {
-  const { watch } = useFormContext<ResumeData>()
+export const sectionLabels = labels
 
-  const language = watch('structure.language')
+export function LayoutDragList({ title, fields }: LayoutDragListProps) {
+  const { control } = useFormContext<ResumeData>()
+
+  const language = useWatch({ control, name: 'structure.language' })
 
   return (
     <div className="w-full rounded bg-muted p-2">

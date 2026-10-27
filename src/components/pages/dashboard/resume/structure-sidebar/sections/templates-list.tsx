@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Controller, useFormContext } from 'react-hook-form'
 import { SectionTitle } from '../../infos-sidebar/section-title'
 
-const allTemplates: ResumeTemplates[] = ['ditto', 'eevee', 'jynx', 'onix']
+const allTemplates: ResumeTemplates[] = ['ditto', 'eevee', 'kicks', 'onix']
 
 export function TemplatesListSection() {
   const { control } = useFormContext<ResumeData>()

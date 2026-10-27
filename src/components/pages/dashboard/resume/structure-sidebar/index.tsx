@@ -6,7 +6,7 @@ import { ThemeSection } from './sections/theme'
 
 export function StructureSidebar() {
   return (
-    <aside className="h-full w-full overflow-y-auto p-6">
+    <aside className="min-h-full w-full p-6">
       {/* COMP: Templates List Section */}
       <TemplatesListSection />
 
