@@ -1,9 +1,11 @@
+import { connection } from 'next/server'
 import { Suspense } from 'react'
 import Logo from '@/assets/logo.svg'
 import { NavItems } from '@/components/pages/dashboard/nav-items'
 import { UserDropdown } from '@/components/pages/dashboard/user-dropdown'
 import { ThemeToggle } from '@/components/shared/theme-toggle'
 import { auth } from '@/lib/auth'
+import { SkeletonUserDropdownFallback } from './skeleton'
 
 type DashboardLayoutProps = {
   children: React.ReactNode
@@ -21,7 +23,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <NavItems />
 
         <div className="mt-auto flex w-full items-center justify-between gap-2 border-muted border-t px-3 py-4">
-          <Suspense fallback={<UserDropdownFallback />}>
+          <Suspense fallback={<SkeletonUserDropdownFallback />}>
             {/* COMP: Session User Dropdown */}
             <SessionUserDropdown />
           </Suspense>
@@ -37,19 +39,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 }
 
 async function SessionUserDropdown() {
+  // O auth() re-criptografa o JWT da sessão (crypto.getRandomValues), então precisa rodar por request
+  await connection()
   const session = await auth()
 
   return (
     // COMP: User Dropdown
     <UserDropdown user={session?.user} />
-  )
-}
-
-function UserDropdownFallback() {
-  return (
-    <div className="flex min-w-0 flex-1 items-center gap-2 px-2">
-      <div className="h-7 w-7 shrink-0 animate-pulse rounded-full bg-muted" />
-      <div className="h-4 flex-1 animate-pulse rounded bg-muted" />
-    </div>
   )
 }

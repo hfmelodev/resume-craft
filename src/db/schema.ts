@@ -1,7 +1,7 @@
-import { boolean, integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
+import { boolean, integer, json, pgTable, primaryKey, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 import type { AdapterAccountType } from 'next-auth/adapters'
 
-// Authenticator
+// Auth
 export const users = pgTable('user', {
   id: text('id')
     .primaryKey()
@@ -79,8 +79,20 @@ export const authenticators = pgTable(
   ]
 )
 
+// App
+export const resumes = pgTable('resumes', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  title: text('title').notNull(),
+  data: json('data').notNull().default({}),
+  userId: text('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  createdAt: timestamp('createdAt', { mode: 'date' }).notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull().defaultNow(),
+})
+
 // RLS sem policies bloqueia a Data API do Supabase (anon/authenticated); o Drizzle conecta como postgres e não é afetado.
 // enableRLS() marca a própria tabela: encadeado na definição, o retorno perde o método no tipo e quebra a tipagem do DrizzleAdapter
-for (const table of [users, accounts, sessions, verificationTokens, authenticators]) {
+for (const table of [users, accounts, sessions, verificationTokens, authenticators, resumes]) {
   table.enableRLS()
 }
