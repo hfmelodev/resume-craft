@@ -72,3 +72,40 @@ export async function deleteResume({ id }: { id: string }) {
 
   revalidatePath('/dashboard/resumes')
 }
+
+export async function duplicateResume({ id, title }: { id: string; title: string }) {
+  const session = await getSession()
+
+  const userId = session?.user?.id
+
+  if (!userId) return { error: 'Você precisa estar logado para duplicar um currículo.' }
+
+  const titleAlreadyExists = await db
+    .select({ id: resumes.id })
+    .from(resumes)
+    .where(and(eq(resumes.userId, userId), eq(resumes.title, title)))
+    .limit(1)
+
+  if (titleAlreadyExists.length > 0) return { error: 'Você já possui um currículo com esse título.' }
+
+  const [originalResume] = await db
+    .select({ data: resumes.data })
+    .from(resumes)
+    .where(and(eq(resumes.id, id), eq(resumes.userId, userId)))
+    .limit(1)
+
+  if (!originalResume) return { error: 'Currículo não encontrado.' }
+
+  const [resume] = await db
+    .insert(resumes)
+    .values({
+      title,
+      data: originalResume.data,
+      userId,
+    })
+    .returning()
+
+  revalidatePath('/dashboard/resumes')
+
+  return { resume }
+}
