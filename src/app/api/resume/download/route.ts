@@ -1,5 +1,21 @@
-import puppeteer, { type Browser } from 'puppeteer'
+import chromium from '@sparticuz/chromium'
+import puppeteer, { type Browser } from 'puppeteer-core'
 import { formatTailwindHTML } from '@/lib/utils'
+
+// Na Vercel usa o Chromium enxuto do @sparticuz/chromium; localmente usa o Chrome baixado pelo puppeteer (devDependency)
+const launchBrowser = async () => {
+  if (process.env.VERCEL) {
+    return puppeteer.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      headless: true,
+    })
+  }
+
+  const { default: localPuppeteer } = await import('puppeteer')
+
+  return localPuppeteer.launch({ headless: true }) as Promise<Browser>
+}
 
 export const POST = async (request: Request) => {
   let browser: Browser | undefined
@@ -7,21 +23,23 @@ export const POST = async (request: Request) => {
   try {
     const body = await request.json()
 
-    const { html } = body
+    const { html, structure } = body
 
     if (!html) return Response.json({ message: 'HTML do currículo obrigatório.' }, { status: 400 })
 
-    browser = await puppeteer.launch({ headless: true })
+    browser = await launchBrowser()
 
     const page = await browser.newPage()
 
-    await page.setContent(formatTailwindHTML(html), { waitUntil: 'load' })
+    await page.setContent(formatTailwindHTML(html, structure), { waitUntil: 'load' })
 
     // Aguarda o Tailwind (CDN) gerar os estilos antes de imprimir
-    await page.waitForFunction(() =>
-      Array.from(document.querySelectorAll('style:not([type="text/tailwindcss"])')).some(style =>
-        style.textContent?.includes('--resume-primary')
-      )
+    await page.waitForFunction(
+      () =>
+        Array.from(document.querySelectorAll('style:not([type="text/tailwindcss"])')).some(style =>
+          style.textContent?.includes('tailwindcss')
+        ),
+      { timeout: 10_000 }
     )
 
     const pdf = await page.pdf({ format: 'A4', printBackground: true })

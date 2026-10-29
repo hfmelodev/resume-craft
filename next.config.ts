@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // Garante que os binários comprimidos do Chromium entrem no bundle da função na Vercel
+  outputFileTracingIncludes: {
+    '/api/resume/download': ['./node_modules/@sparticuz/chromium/bin/**/*'],
+  },
   images: {
     qualities: [100, 25, 50, 75],
   },

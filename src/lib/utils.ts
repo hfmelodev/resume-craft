@@ -9,10 +9,22 @@ export function sectionIsEmpty(section: ResumeSections, data: ResumeContentData)
   }
 }
 
-export const formatTailwindHTML = (html: string) => {
+const resumeLocales: Record<ResumeLanguages, string> = {
+  english: 'en',
+  spanish: 'es',
+  french: 'fr',
+  german: 'de',
+  italian: 'it',
+  portuguese: 'pt-BR',
+}
+
+export const formatTailwindHTML = (html: string, structure?: ResumeStructureData) => {
+  const lang = structure ? resumeLocales[structure.language] : 'pt-BR'
+
   return `
-    <html>
+    <html lang="${lang}">
     <head>
+      <meta charset="utf-8" />
       <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.3"></script>
       <style type="text/tailwindcss">
         @theme inline {
