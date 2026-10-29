@@ -81,12 +81,8 @@ export function ResumePage({ title, initialData, user }: ResumePageProps) {
 
       const result = await updateResumeData({ id: resumeId, data: updatedData })
 
-      if ('error' in result) {
-        toast.error(result.error)
-        return
-      }
-
-      toast.success('Alterações salvas com sucesso!')
+      // Salvamento automático é silencioso: só avisa quando falhar
+      if ('error' in result) toast.error(result.error)
     } catch (error) {
       console.error(error)
 
