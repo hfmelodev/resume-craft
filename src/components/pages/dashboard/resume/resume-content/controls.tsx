@@ -2,8 +2,11 @@ import { Download, RotateCcw, ZoomIn, ZoomOut } from 'lucide-react'
 import { useControls } from 'react-zoom-pan-pinch'
 import { Button } from '@/components/ui/button'
 import { Tooltip } from '@/components/ui/tooltip'
+import { useResumeDownload } from '@/hooks/use-resume-download'
 
 export function TransformControls() {
+  const { handleDownloadResume } = useResumeDownload()
+
   const { zoomIn, zoomOut, centerView } = useControls()
 
   const controls = [
@@ -25,7 +28,7 @@ export function TransformControls() {
     {
       icon: Download,
       label: 'Baixar PDF',
-      onClick: () => console.log('Baixar PDF'),
+      onClick: () => handleDownloadResume(),
     },
   ]
 

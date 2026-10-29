@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Tooltip } from '@/components/ui/tooltip'
+import { useResumeDownload } from '@/hooks/use-resume-download'
 import { DeleteResumeDialog } from './delete-resume-dialog'
 import { DuplicateResumeDialog } from './duplicate-resume-dialog'
 
@@ -13,6 +14,8 @@ type NavigationHeaderProps = {
 }
 
 export function NavigationHeader({ title }: NavigationHeaderProps) {
+  const { handleDownloadResume } = useResumeDownload()
+
   return (
     <header className="absolute top-0 left-0 z-10 flex h-12 w-full items-center justify-between gap-4 border-b bg-background/80 px-3 backdrop-blur-sm">
       <nav aria-label="Navegação" className="flex min-w-0 items-center gap-1">
@@ -30,6 +33,7 @@ export function NavigationHeader({ title }: NavigationHeaderProps) {
       </nav>
 
       <div className="flex shrink-0 items-center gap-1">
+        {/* COMP: Duplicate Resume Dialog */}
         <DuplicateResumeDialog title={title}>
           <Tooltip content="Duplicar currículo">
             <Button size="icon-lg" variant="ghost" type="button" aria-label="Duplicar currículo">
@@ -39,13 +43,14 @@ export function NavigationHeader({ title }: NavigationHeaderProps) {
         </DuplicateResumeDialog>
 
         <Tooltip content="Baixar PDF">
-          <Button size="icon-lg" variant="ghost" type="button" aria-label="Baixar PDF" onClick={() => console.log('Baixar PDF')}>
+          <Button size="icon-lg" variant="ghost" type="button" aria-label="Baixar PDF" onClick={handleDownloadResume}>
             <Download />
           </Button>
         </Tooltip>
 
         <Separator orientation="vertical" className="mx-1 my-2" />
 
+        {/* COMP: Delete Resume Dialog */}
         <DeleteResumeDialog>
           <Tooltip content="Deletar currículo">
             <Button
