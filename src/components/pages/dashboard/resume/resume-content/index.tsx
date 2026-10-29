@@ -7,7 +7,11 @@ import { TransformControls } from './controls'
 import { NavigationHeader } from './header'
 import { ResumeTemplate } from './templates'
 
-export function ResumeContent() {
+type ResumeContentProps = {
+  title: string
+}
+
+export function ResumeContent({ title }: ResumeContentProps) {
   const { getValues, subscribe } = useFormContext<ResumeData>()
 
   const [data, setData] = useState(() => structuredClone(getValues()))
@@ -25,7 +29,7 @@ export function ResumeContent() {
       <TransformWrapper initialScale={0.5} minScale={0.4} centerOnInit centerZoomedOut limitToBounds={false}>
         <>
           {/* COMP: Navigation Header */}
-          <NavigationHeader />
+          <NavigationHeader title={title} />
 
           <TransformComponent>
             {/* COMP: Resume Template */}

@@ -6,7 +6,11 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Tooltip } from '@/components/ui/tooltip'
 
-export function NavigationHeader() {
+type NavigationHeaderProps = {
+  title: string
+}
+
+export function NavigationHeader({ title }: NavigationHeaderProps) {
   const actions = [
     {
       icon: Copy,
@@ -33,7 +37,7 @@ export function NavigationHeader() {
 
         <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
 
-        <h1 className="ml-1 truncate font-bold font-heading text-lg">Título do currículo</h1>
+        <h1 className="ml-1 truncate font-bold font-heading text-lg">{title}</h1>
       </nav>
 
       <div className="flex shrink-0 items-center gap-1">
