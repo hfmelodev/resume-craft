@@ -4,10 +4,12 @@ type TooltipProps = {
   children: React.ReactNode
   content: string | number | React.ReactNode
 }
-export function Tooltip({ children, content }: TooltipProps) {
+export function Tooltip({ children, content, ...props }: TooltipProps) {
   return (
     <TooltipRoot>
-      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipTrigger asChild {...props}>
+        {children}
+      </TooltipTrigger>
       <TooltipContent>
         <p>{content}</p>
       </TooltipContent>

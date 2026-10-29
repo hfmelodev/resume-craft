@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Tooltip } from '@/components/ui/tooltip'
+import { DeleteResumeDialog } from './delete-resume-dialog'
 
 type NavigationHeaderProps = {
   title: string
@@ -51,18 +52,19 @@ export function NavigationHeader({ title }: NavigationHeaderProps) {
 
         <Separator orientation="vertical" className="mx-1 my-2" />
 
-        <Tooltip content="Deletar currículo">
-          <Button
-            size="icon-lg"
-            variant="ghost"
-            type="button"
-            aria-label="Deletar currículo"
-            className="hover:bg-destructive/10 hover:text-destructive dark:hover:bg-destructive/20"
-            onClick={() => console.log('Deletar currículo')}
-          >
-            <Trash />
-          </Button>
-        </Tooltip>
+        <DeleteResumeDialog>
+          <Tooltip content="Deletar currículo">
+            <Button
+              size="icon-lg"
+              variant="ghost"
+              type="button"
+              aria-label="Deletar currículo"
+              className="hover:bg-destructive/10 hover:text-destructive dark:hover:bg-destructive/20"
+            >
+              <Trash />
+            </Button>
+          </Tooltip>
+        </DeleteResumeDialog>
       </div>
     </header>
   )

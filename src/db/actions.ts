@@ -57,3 +57,18 @@ export async function updateResumeData({ id, data }: UpdateResumeDataProps) {
 
   return { updatedResume }
 }
+
+export async function deleteResume({ id }: { id: string }) {
+  const session = await getSession()
+
+  const userId = session?.user?.id
+
+  if (!userId) return { error: 'Você precisa estar logado para deletar um currículo.' }
+
+  await db
+    .delete(resumes)
+    .where(and(eq(resumes.id, id), eq(resumes.userId, userId)))
+    .execute()
+
+  revalidatePath('/dashboard/resumes')
+}
