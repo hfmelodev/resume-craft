@@ -25,7 +25,7 @@ export const POST = async (request: Request) => {
 
     const { html, structure } = body
 
-    if (!html) return Response.json({ message: 'HTML do currículo obrigatório.' }, { status: 400 })
+    if (!html || !structure) return Response.json({ message: 'HTML do currículo obrigatório.' }, { status: 400 })
 
     browser = await launchBrowser()
 
