@@ -1,8 +1,14 @@
+import { useMutation } from '@tanstack/react-query'
 import { useFormContext } from 'react-hook-form'
-import { API } from '@/lib/axios'
+import { ApiService } from '@/server/api'
 
 export const useResumeDownload = () => {
   const { getValues } = useFormContext<ResumeData>()
+
+  const { mutateAsync: handleGetResumeUrl, isPending: isDownloadingResume } = useMutation({
+    mutationFn: ApiService.getResumeUrl,
+  })
+
   const handleDownloadResume = async () => {
     const resume = document.getElementById('resume-content')
 
@@ -11,18 +17,11 @@ export const useResumeDownload = () => {
     const structure = getValues('structure')
     const title = getValues('content.infos.fullName')
 
-    const { data } = await API.post(
-      '/resume/download',
-      {
-        html: resume.outerHTML,
-        structure,
-      },
-      {
-        responseType: 'blob',
-      }
-    )
+    const url = await handleGetResumeUrl({
+      html: resume.outerHTML,
+      structure,
+    })
 
-    const url = window.URL.createObjectURL(data)
     const link = document.createElement('a')
     link.href = url
     link.download = `${title}.pdf`
@@ -33,5 +32,6 @@ export const useResumeDownload = () => {
 
   return {
     handleDownloadResume,
+    isDownloadingResume,
   }
 }

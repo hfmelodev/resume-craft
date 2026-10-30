@@ -1,9 +1,10 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { Copy, LoaderCircle } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
-import { useState, useTransition } from 'react'
+import { useLayoutEffect, useState, useTransition } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import z from 'zod'
@@ -38,19 +39,11 @@ export function DuplicateResumeDialog({ title, ...props }: DuplicateResumeDialog
     },
   })
 
-  const {
-    handleSubmit,
-    setError,
-    formState: { isSubmitting },
-  } = methods
+  const { handleSubmit, setError } = methods
 
-  // router.push não bloqueia: a transition mantém o loading até a página do novo currículo renderizar
-  const isLoading = isSubmitting || isNavigating
-
-  async function onSubmit(data: DuplicateResumeDialogData) {
-    try {
-      const result = await duplicateResume({ id: resumeId, title: data.title })
-
+  const { mutate: duplicateResumeMutation, isPending: isDuplicatingResume } = useMutation({
+    mutationFn: (data: DuplicateResumeDialogData) => duplicateResume({ id: resumeId, title: data.title }),
+    onSuccess: result => {
       if ('error' in result) {
         setError('title', { message: result.error })
         return
@@ -59,10 +52,24 @@ export function DuplicateResumeDialog({ title, ...props }: DuplicateResumeDialog
       toast.success('Currículo duplicado com sucesso!')
 
       startNavigation(() => router.push(`/dashboard/resumes/${result.resume.id}`))
-    } catch {
-      toast.error('Não foi possível duplicar o currículo. Tente novamente.')
-    }
+    },
+    onError: error => {
+      console.error(error)
+      toast.error('Erro ao duplicar o currículo. Tente novamente.')
+    },
+  })
+
+  function onSubmit(data: DuplicateResumeDialogData) {
+    duplicateResumeMutation(data)
   }
+
+  // router.push não bloqueia: a transition mantém o loading até a página do novo currículo renderizar
+  const isLoading = isDuplicatingResume || isNavigating
+
+  // Com cacheComponents a página é escondida (Activity), não desmontada: fecha o diálogo ao sair dela
+  useLayoutEffect(() => {
+    return () => setOpen(false)
+  }, [])
 
   return (
     <Dialog

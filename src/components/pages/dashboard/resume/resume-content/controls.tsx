@@ -5,7 +5,7 @@ import { Tooltip } from '@/components/ui/tooltip'
 import { useResumeDownload } from '@/hooks/use-resume-download'
 
 export function TransformControls() {
-  const { handleDownloadResume } = useResumeDownload()
+  const { handleDownloadResume, isDownloadingResume } = useResumeDownload()
 
   const { zoomIn, zoomOut, centerView } = useControls()
 
@@ -29,14 +29,22 @@ export function TransformControls() {
       icon: Download,
       label: 'Baixar PDF',
       onClick: () => handleDownloadResume(),
+      disabled: isDownloadingResume,
     },
   ]
 
   return (
     <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full border border-muted bg-background px-4 py-3">
-      {controls.map(({ icon: Icon, label, onClick }) => (
+      {controls.map(({ icon: Icon, label, onClick, disabled }) => (
         <Tooltip key={label} content={label}>
-          <Button variant="secondary" type="button" size="icon" className="h-6 w-6 bg-transparent" onClick={onClick}>
+          <Button
+            variant="secondary"
+            type="button"
+            size="icon"
+            disabled={disabled}
+            className="h-6 w-6 bg-transparent"
+            onClick={onClick}
+          >
             <Icon className="size-4" />
           </Button>
         </Tooltip>

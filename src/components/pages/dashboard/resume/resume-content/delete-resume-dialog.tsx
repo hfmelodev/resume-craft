@@ -1,8 +1,9 @@
 'use client'
 
+import { useMutation } from '@tanstack/react-query'
 import { LoaderCircle, Trash2 } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
-import { useState, useTransition } from 'react'
+import { useLayoutEffect, useState, useTransition } from 'react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { type BaseDialogProps, Dialog } from '@/components/ui/dialog'
@@ -14,29 +15,37 @@ export function DeleteResumeDialog(props: BaseDialogProps) {
   const resumeId = params.id
 
   const [open, setOpen] = useState(false)
-  const [isLoading, startTransition] = useTransition()
+  const [isNavigating, startTransition] = useTransition()
+
+  const { mutate: handleDeleteResume, isPending: isDeletingResume } = useMutation({
+    mutationFn: () => deleteResume({ id: resumeId }),
+    onSuccess: result => {
+      if (result?.error) {
+        toast.error(result.error)
+        return
+      }
+
+      toast.success('Currículo deletado com sucesso!')
+
+      // router.push não bloqueia: a transition mantém o loading até a listagem renderizar
+      startTransition(() => router.push('/dashboard/resumes'))
+    },
+    onError: error => {
+      console.error(error)
+      toast.error('Erro ao deletar o currículo. Tente novamente.')
+    },
+  })
 
   function onDelete() {
-    // A transition async mantém o loading durante a action e a navegação de volta para a listagem
-    startTransition(async () => {
-      try {
-        const result = await deleteResume({ id: resumeId })
-
-        if (result?.error) {
-          toast.error(result.error)
-          return
-        }
-
-        toast.success('Currículo deletado com sucesso!')
-
-        // Após um await, o router.push precisa de um novo startTransition para continuar na transition
-        startTransition(() => router.push('/dashboard/resumes'))
-      } catch (error) {
-        console.error(error)
-        toast.error('Erro ao deletar o currículo. Tente novamente.')
-      }
-    })
+    handleDeleteResume()
   }
+
+  const isLoading = isDeletingResume || isNavigating
+
+  // Com cacheComponents a página é escondida (Activity), não desmontada: fecha o diálogo ao sair dela
+  useLayoutEffect(() => {
+    return () => setOpen(false)
+  }, [])
 
   return (
     <Dialog
