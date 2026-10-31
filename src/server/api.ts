@@ -33,8 +33,20 @@ async function fixContent(content: ResumeContentData) {
   return data
 }
 
+type TranslatePayload = {
+  content: ResumeContentData
+  language: ResumeLanguages
+}
+
+async function translate(payload: TranslatePayload) {
+  const { data } = await API.post<IAGenerationResponse>('/generate/translate', payload)
+
+  return data
+}
+
 export const ApiService = {
   getResumeUrl,
   generateContentForJob,
   fixContent,
+  translate,
 }
