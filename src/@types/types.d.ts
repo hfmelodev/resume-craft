@@ -1,5 +1,7 @@
 /** biome-ignore-all lint/correctness/noUnusedVariables: <false positive> */
 
+type AIGenerationMode = 'JOB_TITLE' | 'FIX_CONTENT' | 'TRANSLATE_CONTENT'
+
 type ResumeImageData = {
   url: string
   visible: boolean
