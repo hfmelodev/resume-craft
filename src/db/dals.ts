@@ -1,6 +1,7 @@
 import { and, eq } from 'drizzle-orm'
 import { connection } from 'next/server'
 import { cache } from 'react'
+import z from 'zod'
 import { auth } from '@/lib/auth'
 import { db } from './drizzle'
 import { resumes } from './schema'
@@ -32,6 +33,9 @@ export const getResumeById = cache(async (id: string): Promise<GetResumesDTO | n
   const userId = session?.user?.id
 
   if (!userId) return null
+
+  // Um id que não é UUID faria o Postgres lançar erro de sintaxe: trata como currículo inexistente
+  if (!z.uuid().safeParse(id).success) return null
 
   // Filtra pelo dono para impedir acesso ao currículo de outro usuário via UUID
   const resume = await db
