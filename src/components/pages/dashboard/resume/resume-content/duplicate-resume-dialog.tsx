@@ -83,7 +83,7 @@ export function DuplicateResumeDialog({ title, ...props }: DuplicateResumeDialog
           <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
             <InputField<DuplicateResumeDialogData> label="Título" name="title" />
 
-            <Button type="submit" className="mt-6 ml-auto w-max" disabled={isLoading}>
+            <Button type="submit" className="mt-6 w-full sm:ml-auto sm:w-max" disabled={isLoading}>
               {isLoading ? <LoaderCircle data-icon="inline-start" className="animate-spin" /> : <Copy data-icon="inline-start" />}
               <span className="[text-box:trim-both_cap_alphabetic]">{isLoading ? 'Duplicando...' : 'Duplicar currículo'}</span>
             </Button>

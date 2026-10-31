@@ -9,7 +9,7 @@ export function AddResumeButton(props: ComponentProps<'button'>) {
       <ResumeCardButton
         title="Criar novo currículo"
         description="Clique aqui para criar um novo currículo"
-        icon={<Plus size={50} />}
+        icon={<Plus className="@xl:size-12 size-10" />}
       />
     </button>
   )

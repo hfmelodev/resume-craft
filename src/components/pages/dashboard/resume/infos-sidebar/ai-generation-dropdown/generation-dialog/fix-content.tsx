@@ -47,7 +47,7 @@ export function GenerationToFixContent({ onClose }: GenerationToFixContentProps)
 
         <p>Isso pode levar alguns segundos, aguarde o resultado.</p>
 
-        <Button type="submit" className="ml-auto w-max" disabled={!formState.isValid || isGenerating}>
+        <Button type="submit" className="mt-2 w-full sm:ml-auto sm:w-max" disabled={!formState.isValid || isGenerating}>
           {isGenerating ? (
             <LoaderCircle data-icon="inline-start" className="animate-spin" />
           ) : (

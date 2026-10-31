@@ -13,7 +13,7 @@ export async function ResumesList() {
   })
 
   return (
-    <section className="grid flex-1 auto-rows-max grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-5 xl:grid-cols-5">
+    <section className="grid flex-1 auto-rows-max @2xs:grid-cols-2 @3xl:grid-cols-4 @5xl:grid-cols-5 @xl:grid-cols-3 grid-cols-1 @3xl:gap-5 @xl:gap-4 gap-3">
       <NewResumeDialog>
         <AddResumeButton />
       </NewResumeDialog>

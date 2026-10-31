@@ -4,7 +4,12 @@ import { Button } from '@/components/ui/button'
 import { Tooltip } from '@/components/ui/tooltip'
 import { useResumeDownload } from '@/hooks/use-resume-download'
 
-export function TransformControls() {
+type TransformControlsProps = {
+  // Escala calculada para a folha caber na tela; o reset volta para ela
+  initialScale: number
+}
+
+export function TransformControls({ initialScale }: TransformControlsProps) {
   const { handleDownloadResume, isDownloadingResume } = useResumeDownload()
 
   const { zoomIn, zoomOut, centerView } = useControls()
@@ -23,7 +28,7 @@ export function TransformControls() {
     {
       icon: RotateCcw,
       label: 'Resetar posição',
-      onClick: () => centerView(0.5),
+      onClick: () => centerView(initialScale),
     },
     {
       icon: Download,
@@ -34,7 +39,7 @@ export function TransformControls() {
   ]
 
   return (
-    <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 rounded-full border border-muted bg-background px-4 py-3">
+    <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 rounded-full border border-muted bg-background px-2 py-1.5 lg:gap-2 lg:px-4 lg:py-3">
       {controls.map(({ icon: Icon, label, onClick, disabled }) => (
         <Tooltip key={label} content={label}>
           <Button
@@ -42,7 +47,9 @@ export function TransformControls() {
             type="button"
             size="icon"
             disabled={disabled}
-            className="h-6 w-6 bg-transparent"
+            aria-label={label}
+            // Alvo de toque maior no mobile; no desktop mantém o visual compacto
+            className="size-9 bg-transparent lg:size-6"
             onClick={onClick}
           >
             <Icon className="size-4" />

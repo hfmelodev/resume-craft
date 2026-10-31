@@ -68,7 +68,7 @@ export function MultipleDragList({ data, onAdd, onEdit }: MultipleDragListProps)
                           >
                             <div
                               {...provided.dragHandleProps}
-                              className="flex h-full w-6 items-center justify-center bg-muted/50 transition-all hover:brightness-125"
+                              className="flex h-full w-6 shrink-0 items-center justify-center bg-muted/50 transition-all hover:brightness-125"
                             >
                               <GripVertical />
                             </div>
@@ -76,10 +76,10 @@ export function MultipleDragList({ data, onAdd, onEdit }: MultipleDragListProps)
                               <button
                                 type="button"
                                 onClick={() => onEdit(index)}
-                                className="flex flex-1 cursor-pointer flex-col justify-center px-3 text-left transition-all hover:bg-muted/80"
+                                className="flex min-w-0 flex-1 cursor-pointer flex-col justify-center px-3 text-left transition-all hover:bg-muted/80"
                               >
-                                <p className="font-bold font-heading text-sm">{field[titleKey]}</p>
-                                <p className="text-muted-foreground text-xs">{field[descriptionKey]}</p>
+                                <p className="truncate font-bold font-heading text-sm">{field[titleKey]}</p>
+                                <p className="truncate text-muted-foreground text-xs">{field[descriptionKey]}</p>
                               </button>
                             </Tooltip>
                           </div>

@@ -69,7 +69,7 @@ export function GenerationFromJobTitle({ onClose }: GenerationFromJobTitleProps)
       <div className="flex flex-col gap-2">
         <InputField control={control} label="Cargo" name="jobTitle" placeholder="Desenvolvedor FullStack" />
         <EditorField control={control} label="Descrição da vaga (Opcional)" name="jobDescription" className="max-h-75 min-h-50" />
-        <Button type="submit" className="ml-auto w-max" disabled={!formState.isValid || isGenerating}>
+        <Button type="submit" className="mt-2 w-full sm:ml-auto sm:w-max" disabled={!formState.isValid || isGenerating}>
           {isGenerating ? (
             <LoaderCircle data-icon="inline-start" className="animate-spin" />
           ) : (

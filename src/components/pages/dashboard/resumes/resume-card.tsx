@@ -15,14 +15,14 @@ export function ResumeCardButton({ title, description, icon }: ResumeCardButtonP
   return (
     <div
       className={cn(
-        'relative flex h-75 w-full items-center justify-center overflow-hidden rounded border border-muted-foreground/20',
+        'relative flex aspect-3/4 w-full items-center justify-center overflow-hidden rounded border border-muted-foreground/20',
         'cursor-pointer bg-muted/50 outline-none transition-all hover:brightness-105 dark:hover:brightness-125'
       )}
     >
       {icon}
 
       <div className="absolute bottom-0 left-0 w-full bg-linear-to-t from-background/80 p-3 text-left">
-        <h3 className="font-bold font-heading text-sm">{title}</h3>
+        <h3 className="truncate font-bold font-heading text-sm">{title}</h3>
         <p className="block text-muted-foreground text-xs">{description}</p>
       </div>
     </div>

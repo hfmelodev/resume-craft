@@ -97,7 +97,7 @@ export function LayoutDragList({ title, fields }: LayoutDragListProps) {
                 className="flex items-center gap-1 rounded bg-foreground p-1"
               >
                 <GripVertical className="h-4 w-4 min-w-4 text-background" />
-                <p className="font-heading font-semibold text-muted text-xs">{labels[field.key][language]}</p>
+                <p className="min-w-0 truncate font-heading font-semibold text-muted text-xs">{labels[field.key][language]}</p>
               </div>
             )}
           </Draggable>

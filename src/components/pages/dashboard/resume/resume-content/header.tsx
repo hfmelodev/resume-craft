@@ -17,7 +17,7 @@ export function NavigationHeader({ title }: NavigationHeaderProps) {
   const { handleDownloadResume, isDownloadingResume } = useResumeDownload()
 
   return (
-    <header className="absolute top-0 left-0 z-10 flex h-12 w-full items-center justify-between gap-4 border-b bg-background/80 px-3 backdrop-blur-sm">
+    <header className="absolute top-0 left-0 z-10 flex h-12 w-full items-center justify-between gap-2 border-b bg-background/80 px-2 backdrop-blur-sm sm:gap-4 sm:px-3">
       <nav aria-label="Navegação" className="flex min-w-0 items-center gap-1">
         <Tooltip content="Voltar ao painel">
           <Button size="icon-lg" variant="ghost" asChild>
@@ -29,7 +29,7 @@ export function NavigationHeader({ title }: NavigationHeaderProps) {
 
         <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
 
-        <h1 className="ml-1 truncate font-bold font-heading text-lg">{title}</h1>
+        <h1 className="ml-1 truncate font-bold font-heading text-base sm:text-lg">{title}</h1>
       </nav>
 
       <div className="flex shrink-0 items-center gap-1">

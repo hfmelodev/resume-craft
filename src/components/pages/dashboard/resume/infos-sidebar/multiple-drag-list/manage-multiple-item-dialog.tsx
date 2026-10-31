@@ -394,23 +394,23 @@ export function ManageMultipleItemDialog({ data, open, setOpen, initialData, edi
   return (
     <Dialog
       title={isEditing ? 'Editar item' : 'Adicionar novo item'}
-      className="max-h-[90vh] overflow-y-auto sm:max-w-2xl"
+      className="sm:max-w-2xl"
       open={open}
       setOpen={setOpen}
       content={
         <FormProvider {...methods}>
           <form className="mt-2 flex flex-col" noValidate onSubmit={methods.handleSubmit(onSubmit)}>
-            <div className="mb-4 grid grid-cols-2 gap-4">{formContent}</div>
+            <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">{formContent}</div>
 
-            <div className="ml-auto flex gap-3">
+            <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-3">
               {isEditing && (
-                <Button type="button" variant="destructive" className="w-max" onClick={onDelete}>
+                <Button type="button" variant="destructive" onClick={onDelete}>
                   <Trash2 />
                   Remover
                 </Button>
               )}
 
-              <Button type="submit" className="w-max">
+              <Button type="submit">
                 <Check />
                 {isEditing ? 'Salvar' : 'Adicionar'}
               </Button>

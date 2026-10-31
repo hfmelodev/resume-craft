@@ -17,7 +17,7 @@ export function TemplatesListSection() {
         control={control}
         name="structure.template"
         render={({ field }) => (
-          <div className="mt-4 grid w-full grid-cols-2 gap-4">
+          <div className="mt-4 grid w-full @md:grid-cols-4 grid-cols-2 @xs:gap-4 gap-3">
             {allTemplates.map(template => {
               const isSelected = field.value === template
 
@@ -26,9 +26,10 @@ export function TemplatesListSection() {
                   key={`template-${template}`}
                   type="button"
                   className={cn(
-                    'relative aspect-auto w-full overflow-hidden rounded border-2 border-muted transition-all hover:brightness-125',
+                    'relative w-full overflow-hidden rounded border-2 border-muted transition-all hover:brightness-125',
                     isSelected && 'border-muted-foreground'
                   )}
+                  aria-pressed={isSelected}
                   onClick={() => field.onChange(template)}
                 >
                   <Image

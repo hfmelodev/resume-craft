@@ -57,7 +57,7 @@ export function LayoutSection() {
       <SectionTitle title="Estrutura" icon={Columns3} />
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="mt-4 grid grid-cols-2 gap-4">
+        <div className="mt-4 grid grid-cols-2 @xs:gap-4 gap-3">
           {/* Lado esquerdo */}
           <Droppable droppableId="mainFields">
             {provided => (

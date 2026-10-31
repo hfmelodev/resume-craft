@@ -37,13 +37,14 @@ export function AIGenerationDropdown() {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button type="button">
+          <Button type="button" className="min-w-0">
             <Bot data-icon="inline-start" />
-            Inteligência Artificial
+            {/* Em painéis estreitos fica só o ícone, mas o rótulo segue disponível para leitores de tela */}
+            <span className="sr-only @3xs:not-sr-only">Inteligência Artificial</span>
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent sideOffset={10} align="start" className="w-72">
+        <DropdownMenuContent sideOffset={10} align="end" className="w-72 max-w-[calc(100vw-2rem)]">
           <DropdownMenuGroup>
             <DropdownMenuLabel className="flex items-center gap-1">
               Você possui

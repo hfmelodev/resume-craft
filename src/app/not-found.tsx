@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="relative flex min-h-screen flex-col overflow-hidden">
+    <main className="relative flex min-h-dvh flex-col overflow-hidden">
       {/* Grade de fundo que some nas bordas */}
       <div
         aria-hidden

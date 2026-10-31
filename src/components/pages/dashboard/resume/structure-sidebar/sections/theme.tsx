@@ -20,7 +20,7 @@ export function ThemeSection() {
         control={control}
         name="structure.colorTheme"
         render={({ field }) => (
-          <div className="mt-4 grid grid-cols-7 gap-4">
+          <div className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(1.75rem,1fr))] justify-items-center gap-3">
             {colorKeys.map(colorKey => {
               const isSelected = field.value === colorKey
 
@@ -28,6 +28,8 @@ export function ThemeSection() {
                 <Button
                   key={colorKey}
                   variant="ghost"
+                  aria-label={colorKey}
+                  aria-pressed={isSelected}
                   className={cn('h-7 w-7 rounded-full p-1 transition-all', isSelected && 'ring-2 ring-foreground')}
                   onClick={() => field.onChange(colorKey)}
                 >

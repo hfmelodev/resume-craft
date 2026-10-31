@@ -76,7 +76,7 @@ export function NewResumeDialog(props: BaseDialogProps) {
           <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
             <InputField<NewResumeDialogData> label="Título" name="title" />
 
-            <Button type="submit" className="mt-6 ml-auto w-max" disabled={isLoading}>
+            <Button type="submit" className="mt-6 w-full sm:ml-auto sm:w-max" disabled={isLoading}>
               {isLoading ? (
                 <LoaderCircle data-icon="inline-start" className="animate-spin" />
               ) : (

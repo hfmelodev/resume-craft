@@ -9,7 +9,7 @@ export function BasicInfoSection() {
       {/* COMP: Section Title */}
       <SectionTitle title="Informações Básicas" icon={UserRound} />
 
-      <div className="mt-4 grid w-full grid-cols-2 gap-4">
+      <div className="mt-4 grid w-full @xs:grid-cols-2 grid-cols-1 gap-4">
         <div className="col-span-full flex w-full items-end gap-3">
           <InputField<ResumeData> label="Foto" placeholder="https://.." name="content.image.url" containerClassName="flex-1" />
 
