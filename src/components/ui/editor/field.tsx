@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react'
-import { Controller, type FieldValues, type Path, useFormContext } from 'react-hook-form'
+import { type Control, Controller, type FieldValues, type Path, useFormContext } from 'react-hook-form'
 import { FieldWrapper } from '../field-wrapper'
 import { Editor } from '.'
 
@@ -8,6 +8,7 @@ type EditorFieldProps<T extends FieldValues> = Omit<ComponentProps<typeof Editor
   name: Path<T>
   containerClassName?: string
   required?: boolean
+  control?: Control<T>
 }
 
 export function EditorField<T extends FieldValues>({
@@ -16,9 +17,11 @@ export function EditorField<T extends FieldValues>({
   id,
   containerClassName,
   required: _required,
+  control: customControl,
   ...props
 }: EditorFieldProps<T>) {
-  const { control } = useFormContext<T>()
+  const formContext = useFormContext<T>()
+  const control = customControl ?? formContext?.control
   const inputId = id ?? name
 
   return (

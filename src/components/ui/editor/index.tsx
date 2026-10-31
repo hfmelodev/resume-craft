@@ -5,6 +5,7 @@ import { Placeholder } from '@tiptap/extensions'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { cn } from 'cn'
+import { useEffect } from 'react'
 import { MenuBar } from './menu-bar'
 
 type EditorProps = {
@@ -82,6 +83,13 @@ export function Editor({
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
   })
+
+  // O content do useEditor só vale na criação, então valores definidos por fora (ex.: setValue do form) precisam ser aplicados aqui
+  useEffect(() => {
+    if (!editor || editor.isDestroyed || value === editor.getHTML()) return
+
+    editor.commands.setContent(value, { emitUpdate: false })
+  }, [editor, value])
 
   return (
     <div

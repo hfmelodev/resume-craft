@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react'
-import { Controller, type FieldValues, type Path, useFormContext } from 'react-hook-form'
+import { type Control, Controller, type FieldValues, type Path, useFormContext } from 'react-hook-form'
 import { FieldWrapper } from '../field-wrapper'
 import { Input } from '.'
 
@@ -8,6 +8,7 @@ type InputFieldProps<T extends FieldValues> = Omit<ComponentProps<'input'>, 'nam
   name: Path<T>
   containerClassName?: string
   extraContent?: (value: string) => React.ReactNode
+  control?: Control<T>
 }
 
 export function InputField<T extends FieldValues>({
@@ -17,9 +18,11 @@ export function InputField<T extends FieldValues>({
   containerClassName,
   extraContent,
   required,
+  control: customControl,
   ...props
 }: InputFieldProps<T>) {
-  const { control } = useFormContext<T>()
+  const formContext = useFormContext<T>()
+  const control = customControl ?? formContext?.control
   const inputId = id ?? name
 
   return (
