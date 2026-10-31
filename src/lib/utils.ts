@@ -39,3 +39,13 @@ export const formatTailwindHTML = (html: string, structure?: ResumeStructureData
     </html>
   `
 }
+
+export function isValidJSON(json: string | null) {
+  try {
+    if (!json) return false
+    JSON.parse(json)
+    return true
+  } catch (_error) {
+    return false
+  }
+}

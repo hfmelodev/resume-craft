@@ -9,6 +9,7 @@ const envSchema = z.object({
   AUTH_GITHUB_SECRET: z.string().min(1),
   AUTH_GOOGLE_ID: z.string().min(1),
   AUTH_GOOGLE_SECRET: z.string().min(1),
+  OPENAI_API_KEY: z.string().min(1),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)

@@ -1,13 +1,19 @@
 import type { JSX } from 'react/jsx-runtime'
 import { type BaseDialogProps, Dialog } from '@/components/ui/dialog'
+import { GenerationFromJobTitle } from './job-title'
 
 type GenerationDialogProps = BaseDialogProps & {
   mode: AIGenerationMode
+  setOpen: (open: boolean) => void
 }
 
-export function GenerationDialog({ mode, ...props }: GenerationDialogProps) {
+export function GenerationDialog({ mode, setOpen, ...props }: GenerationDialogProps) {
+  function onClose() {
+    setOpen(false)
+  }
+
   const configPerMode: Record<AIGenerationMode, JSX.Element> = {
-    JOB_TITLE: <div>Gerar conteúdo para vaga de emprego</div>,
+    JOB_TITLE: <GenerationFromJobTitle onClose={onClose} />,
     FIX_CONTENT: <div>Melhorar e corrigir conteúdo existente</div>,
     TRANSLATE_CONTENT: <div>Traduzir conteúdo existente</div>,
   }
@@ -17,6 +23,7 @@ export function GenerationDialog({ mode, ...props }: GenerationDialogProps) {
   return (
     <Dialog
       {...props}
+      setOpen={setOpen}
       title="Inteligência Artificial"
       description="O conteúdo gerado sobrescreverá os campos existentes. Cada geração custa 1 crédito."
       content={content}
