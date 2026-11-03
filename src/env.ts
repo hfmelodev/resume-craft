@@ -3,13 +3,15 @@ import z from 'zod'
 const envSchema = z.object({
   DATABASE_URL: z.url(),
   DIRECT_URL: z.url(),
-
+  NEXT_PUBLIC_APP_URL: z.string().min(1),
   AUTH_SECRET: z.string().min(1),
   AUTH_GITHUB_ID: z.string().min(1),
   AUTH_GITHUB_SECRET: z.string().min(1),
   AUTH_GOOGLE_ID: z.string().min(1),
   AUTH_GOOGLE_SECRET: z.string().min(1),
   OPENAI_API_KEY: z.string().min(1),
+  STRIPE_SECRET_KEY: z.string().min(1),
+  STRIPE_CREDIT_PRODUCT_ID: z.string().min(1),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)

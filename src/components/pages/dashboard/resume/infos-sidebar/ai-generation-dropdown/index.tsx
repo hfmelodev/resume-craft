@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query'
 import { BadgeCent, Bot, BriefcaseBusiness, CreditCard, Languages, WandSparkles } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
@@ -10,10 +11,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Skeleton } from '@/components/ui/skeleton'
+import { queryKeys } from '@/constants/query-keys'
+import { ApiService } from '@/server/api'
+import { BuyCreditsDialog } from './buy-credits-dialog'
 import { GenerationDialog } from './generation-dialog'
 
 export function AIGenerationDropdown() {
   const [generationMode, setGenerationMode] = useState<AIGenerationMode | null>(null)
+  const [showCreditsDialog, setShowCreditsDialog] = useState(false)
 
   const actions = [
     {
@@ -33,6 +39,11 @@ export function AIGenerationDropdown() {
     },
   ]
 
+  const { data: credits, isLoading: isLoadingCredits } = useQuery({
+    queryKey: queryKeys.credits,
+    queryFn: () => ApiService.getCredits(),
+  })
+
   return (
     <>
       <DropdownMenu>
@@ -50,11 +61,16 @@ export function AIGenerationDropdown() {
               Você possui
               <strong className="inline-flex items-center gap-0.5 text-foreground">
                 <BadgeCent className="size-3.5" />
-                20 créditos
+                {isLoadingCredits ? (
+                  <Skeleton aria-label="Carregando créditos" className="inline-block h-3.5 w-5" />
+                ) : (
+                  (credits ?? 0)
+                )}{' '}
+                créditos
               </strong>
             </DropdownMenuLabel>
 
-            <DropdownMenuItem onClick={() => console.log('Comprar créditos')}>
+            <DropdownMenuItem onClick={() => setShowCreditsDialog(true)}>
               <CreditCard />
               <span>Comprar créditos</span>
             </DropdownMenuItem>
@@ -66,7 +82,7 @@ export function AIGenerationDropdown() {
             <DropdownMenuLabel>Gerar com IA</DropdownMenuLabel>
 
             {actions.map(action => (
-              <DropdownMenuItem key={action.label} onClick={action.onClick}>
+              <DropdownMenuItem key={action.label} onClick={action.onClick} disabled={credits === 0}>
                 <action.icon />
                 <span>{action.label}</span>
               </DropdownMenuItem>
@@ -74,6 +90,9 @@ export function AIGenerationDropdown() {
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      {/* COMP: Buy Credits Dialog */}
+      <BuyCreditsDialog open={showCreditsDialog} setOpen={setShowCreditsDialog} />
 
       {/* COMP: Generation Dialog */}
       {!!generationMode && (

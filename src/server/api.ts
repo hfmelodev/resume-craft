@@ -1,3 +1,4 @@
+import type Stripe from 'stripe'
 import { API } from '@/lib/axios'
 
 type ResumeDownloadPayload = {
@@ -44,9 +45,30 @@ async function translate(payload: TranslatePayload) {
   return data
 }
 
+async function getCredits() {
+  const { data } = await API.get<{ credits: number }>('/credits')
+
+  return data?.credits ?? 0
+}
+
+async function getPackageCredits() {
+  const { data } = await API.get<{ prices: Stripe.Price[] }>('/credits/packages')
+
+  return data?.prices ?? []
+}
+
+async function getCheckoutUrl(priceId: string, currentPathname: string) {
+  const { data } = await API.post<{ url: string }>('/credits/packages/checkout', { priceId, currentPathname })
+
+  return data
+}
+
 export const ApiService = {
   getResumeUrl,
   generateContentForJob,
   fixContent,
   translate,
+  getCredits,
+  getPackageCredits,
+  getCheckoutUrl,
 }

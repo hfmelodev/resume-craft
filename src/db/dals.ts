@@ -4,7 +4,7 @@ import { cache } from 'react'
 import z from 'zod'
 import { auth } from '@/lib/auth'
 import { db } from './drizzle'
-import { resumes } from './schema'
+import { resumes, users } from './schema'
 
 export type GetResumesDTO = typeof resumes.$inferSelect
 
@@ -45,4 +45,16 @@ export const getResumeById = cache(async (id: string): Promise<GetResumesDTO | n
     .limit(1)
 
   return resume.length > 0 ? resume[0] : null
+})
+
+export const getUserCredits = cache(async (): Promise<number> => {
+  const session = await getSession()
+
+  const userId = session?.user?.id
+
+  if (!userId) return 0
+
+  const user = await db.select().from(users).where(eq(users.id, userId)).limit(1)
+
+  return user.length > 0 ? user[0].credits : 0
 })

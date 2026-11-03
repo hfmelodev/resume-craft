@@ -8,6 +8,13 @@
       "when": 1793190027368,
       "tag": "0000_minor_violations",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793710853682,
+      "tag": "0001_rapid_punisher",
+      "breakpoints": true
     }
   ]
 }
