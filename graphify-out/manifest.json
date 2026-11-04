@@ -624,9 +624,9 @@
     "semantic_hash": ""
   },
   "src/lib/auth.ts": {
-    "mtime": 1793190159.6787825,
-    "seen": 1793709402.0432782,
-    "ast_hash": "e336a9439bd8d930e376b17f2a1f9809",
+    "mtime": 1793809723.1394675,
+    "seen": 1793809731.8543837,
+    "ast_hash": "91cb1456133d48b2ef6d113e76a2f68f",
     "semantic_hash": ""
   },
   "src/lib/axios.ts": {
@@ -660,9 +660,9 @@
     "semantic_hash": ""
   },
   "src/server/api.ts": {
-    "mtime": 1793728387.6898932,
-    "seen": 1793728733.860678,
-    "ast_hash": "ef48f6be3393baaa30637bbf181feba6",
+    "mtime": 1793808638.094195,
+    "seen": 1793808818.7855234,
+    "ast_hash": "55f5c7f88c0dd4de3967366a05628da2",
     "semantic_hash": ""
   },
   "svgr.config.js": {
@@ -762,9 +762,9 @@
     "semantic_hash": ""
   },
   "src/components/pages/dashboard/resume/infos-sidebar/ai-generation-dropdown/buy-credits-dialog.tsx": {
-    "mtime": 1793728429.064318,
-    "seen": 1793728733.8592536,
-    "ast_hash": "4bdd40f63c28c329cc068d095d1d69e0",
+    "mtime": 1793808814.000322,
+    "seen": 1793808818.7840633,
+    "ast_hash": "4e224988d1b4114965c10ed41f838f31",
     "semantic_hash": ""
   },
   "src/constants/query-keys.ts": {
@@ -870,9 +870,9 @@
     "semantic_hash": ""
   },
   "openspec/specs/ai-credits/spec.md": {
-    "mtime": 1793802112.8793871,
-    "seen": 1793802117.3478127,
-    "ast_hash": "ed6e5de0fee0f2f4c533b9d570c2a0d1",
+    "mtime": 1793810340.701723,
+    "seen": 1793810349.379542,
+    "ast_hash": "8da5547baef8e395e8ea6bef49435d29",
     "semantic_hash": ""
   },
   "openspec/specs/ai-generation/spec.md": {
@@ -882,9 +882,9 @@
     "semantic_hash": ""
   },
   "openspec/specs/authentication/spec.md": {
-    "mtime": 1793751179.0517702,
-    "seen": 1793752005.8767805,
-    "ast_hash": "f687bdc508616b4049075557c975e709",
+    "mtime": 1793810340.698723,
+    "seen": 1793810349.3795822,
+    "ast_hash": "4cc111cc0e0e013402317ef647411913",
     "semantic_hash": ""
   },
   "openspec/specs/pdf-export/spec.md": {
@@ -909,6 +909,18 @@
     "mtime": 1793751179.0617704,
     "seen": 1793752005.8767889,
     "ast_hash": "bf7dbe2721f6655c81d07aa54327d937",
+    "semantic_hash": ""
+  },
+  "src/app/dashboard/(layout)/account/page.tsx": {
+    "mtime": 1793809949.6280456,
+    "seen": 1793809960.2849646,
+    "ast_hash": "cb11b8a4410baa8a32e0f5152a4ac0a6",
+    "semantic_hash": ""
+  },
+  "src/app/api/credits/transactions/route.ts": {
+    "mtime": 1793809952.9370685,
+    "seen": 1793809960.284729,
+    "ast_hash": "be95cc39e3c172e9b7746f3aace0ad67",
     "semantic_hash": ""
   },
   "pnpm-lock.yaml": {
