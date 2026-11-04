@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { LoaderCircle, Sparkles } from 'lucide-react'
 import { mergician } from 'mergician'
 import { Controller, useForm, useFormContext } from 'react-hook-form'
@@ -8,6 +8,8 @@ import z from 'zod'
 import { Button } from '@/components/ui/button'
 import { FieldWrapper } from '@/components/ui/field-wrapper'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { queryKeys } from '@/constants/query-keys'
+import { getApiErrorMessage } from '@/lib/axios'
 import { ApiService } from '@/server/api'
 import { languagesOptions } from '../../../structure-sidebar/sections/language'
 
@@ -22,6 +24,8 @@ type GenerationTranslateProps = {
 }
 
 export function GenerationTranslate({ onClose }: GenerationTranslateProps) {
+  const queryClient = useQueryClient()
+
   const { control, formState, handleSubmit } = useForm<TranslateFormData>({
     shouldUnregister: true,
     resolver: zodResolver(translateSchema),
@@ -30,30 +34,35 @@ export function GenerationTranslate({ onClose }: GenerationTranslateProps) {
 
   const { getValues, setValue } = useFormContext<ResumeData>()
 
-  const { mutateAsync: handleTranslate, isPending: isGenerating } = useMutation({
+  const { mutate: handleTranslate, isPending: isGenerating } = useMutation({
     mutationFn: ApiService.translate,
+    onSuccess: (response, { content, language }) => {
+      const generation = JSON.parse(response.data)
+
+      const mergedContent = mergician(content, generation) as ResumeContentData
+
+      setValue('content', mergedContent)
+      setValue('structure.language', language)
+
+      toast.success('Conteúdo traduzido com sucesso!', {
+        description: 'Seu currículo foi atualizado.',
+      })
+
+      queryClient.invalidateQueries({ queryKey: queryKeys.credits })
+
+      onClose()
+    },
+    onError: error => {
+      console.error(error)
+      toast.error(getApiErrorMessage(error, 'Erro ao traduzir conteúdo. Tente novamente.'))
+    },
   })
 
-  async function onSubmit(data: TranslateFormData) {
-    const content = getValues('content')
-
-    const response = await handleTranslate({
-      content,
+  function onSubmit(data: TranslateFormData) {
+    handleTranslate({
+      content: getValues('content'),
       language: data.language,
     })
-
-    const generation = JSON.parse(response.data)
-
-    const mergedContent = mergician(content, generation) as ResumeContentData
-
-    setValue('content', mergedContent)
-    setValue('structure.language', data.language)
-
-    toast.success('Conteúdo traduzido com sucesso!', {
-      description: 'Seu currículo foi atualizado.',
-    })
-
-    onClose()
   }
 
   return (

@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm'
+import { and, eq, gte, sql } from 'drizzle-orm'
 import { connection } from 'next/server'
 import { cache } from 'react'
 import z from 'zod'
@@ -58,3 +58,23 @@ export const getUserCredits = cache(async (): Promise<number> => {
 
   return user.length > 0 ? user[0].credits : 0
 })
+
+// Fica fora do actions.ts: lá o 'use server' a exporia como Server Action, e um amount negativo somaria créditos
+export async function decrementUserCredits(amount: number) {
+  const session = await getSession()
+
+  const userId = session?.user?.id
+
+  if (!userId) return { error: 'Você precisa estar logado para gerar conteúdo.' }
+
+  // Decremento atômico no SQL; o gte() impede que o saldo fique negativo em requisições concorrentes
+  const [updatedUser] = await db
+    .update(users)
+    .set({ credits: sql`${users.credits} - ${amount}` })
+    .where(and(eq(users.id, userId), gte(users.credits, amount)))
+    .returning({ credits: users.credits })
+
+  if (!updatedUser) return { error: 'Você não possui créditos suficientes para gerar conteúdo.' }
+
+  return { credits: updatedUser.credits }
+}

@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { LoaderCircle, Sparkles } from 'lucide-react'
 import { useForm, useFormContext } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -7,6 +7,8 @@ import z from 'zod'
 import { Button } from '@/components/ui/button'
 import { EditorField } from '@/components/ui/editor/field'
 import { InputField } from '@/components/ui/input/field'
+import { queryKeys } from '@/constants/query-keys'
+import { getApiErrorMessage } from '@/lib/axios'
 import { ApiService } from '@/server/api'
 
 const jobTitleSchema = z.object({
@@ -30,6 +32,8 @@ type GenerationFromJobTitleProps = {
 }
 
 export function GenerationFromJobTitle({ onClose }: GenerationFromJobTitleProps) {
+  const queryClient = useQueryClient()
+
   const { control, formState, handleSubmit } = useForm<JobTitleFormData>({
     shouldUnregister: true,
     resolver: zodResolver(jobTitleSchema),
@@ -41,27 +45,34 @@ export function GenerationFromJobTitle({ onClose }: GenerationFromJobTitleProps)
 
   const { setValue } = useFormContext<ResumeData>()
 
-  const { mutateAsync: handleGenerateForJob, isPending: isGenerating } = useMutation({
+  const { mutate: handleGenerateForJob, isPending: isGenerating } = useMutation({
     mutationFn: ApiService.generateContentForJob,
+    onSuccess: response => {
+      const generation = JSON.parse(response.data) as GenerationData
+
+      setValue('content.infos.headline', generation.headline)
+      setValue('content.summary', generation.summary)
+      setValue('content.skills', generation.skills)
+
+      toast.success('Conteúdo gerado com sucesso!', {
+        description: 'Seu currículo foi atualizado.',
+      })
+
+      queryClient.invalidateQueries({ queryKey: queryKeys.credits })
+
+      onClose()
+    },
+    onError: error => {
+      console.error(error)
+      toast.error(getApiErrorMessage(error, 'Erro ao gerar conteúdo. Tente novamente.'))
+    },
   })
 
-  async function onSubmit(data: JobTitleFormData) {
-    const response = await handleGenerateForJob({
+  function onSubmit(data: JobTitleFormData) {
+    handleGenerateForJob({
       jobDescription: data.jobDescription,
       jobTitle: data.jobTitle,
     })
-
-    const generation = JSON.parse(response.data) as GenerationData
-
-    setValue('content.infos.headline', generation.headline)
-    setValue('content.summary', generation.summary)
-    setValue('content.skills', generation.skills)
-
-    toast.success('Conteúdo gerado com sucesso!', {
-      description: 'Seu currículo foi atualizado.',
-    })
-
-    onClose()
   }
 
   return (

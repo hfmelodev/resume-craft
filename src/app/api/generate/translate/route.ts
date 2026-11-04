@@ -1,5 +1,6 @@
 import { APIError } from 'openai'
 import { z } from 'zod'
+import { decrementUserCredits, getUserCredits } from '@/db/dals'
 import { openai } from '@/lib/openai'
 import { isValidJSON } from '@/lib/utils'
 
@@ -10,6 +11,19 @@ const translateSchema = z.object({
 
 export const POST = async (request: Request) => {
   try {
+    const credits = await getUserCredits()
+
+    if (credits <= 0) {
+      return Response.json(
+        {
+          message: 'Você não possui créditos suficientes para gerar conteúdo.',
+        },
+        {
+          status: 403,
+        }
+      )
+    }
+
     const body = await request.json()
 
     const { content, language } = translateSchema.parse(body)
@@ -49,6 +63,11 @@ export const POST = async (request: Request) => {
         }
       )
     }
+
+    // Requisições concorrentes podem passar juntas pela checagem inicial; o decremento atômico decide quem leva
+    const debit = await decrementUserCredits(1)
+
+    if ('error' in debit) return Response.json({ message: debit.error }, { status: 403 })
 
     return Response.json({
       data: json,

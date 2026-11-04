@@ -9,7 +9,22 @@ O sistema MUST expor o saldo do usuário em `GET /api/credits` e MUST desabilita
 
 #### Scenario: Saldo zerado
 - **WHEN** o usuário abre o menu de IA com 0 créditos
-- **THEN** as ações de geração aparecem desabilitadas e é possível comprar créditos
+- **THEN** as ações de geração aparecem desabilitadas, com tooltip explicando a falta de créditos, e é possível comprar créditos
+
+### Requirement: Débito por geração
+As rotas `POST /api/generate/*` MUST responder 403 sem chamar a OpenAI quando o saldo for 0 e MUST debitar 1 crédito por geração bem-sucedida com decremento atômico condicionado a `credits >= amount`, de modo que o saldo nunca fique negativo. O cliente MUST exibir a mensagem retornada pela rota e recarregar o saldo após a geração.
+
+#### Scenario: Geração com saldo
+- **WHEN** um usuário com créditos gera conteúdo com sucesso
+- **THEN** o conteúdo é aplicado, 1 crédito é debitado e o saldo exibido é atualizado
+
+#### Scenario: Sem créditos
+- **WHEN** um usuário com 0 créditos chama uma rota de geração
+- **THEN** a rota responde 403 com "Você não possui créditos suficientes para gerar conteúdo." e o cliente mostra essa mensagem em toast
+
+#### Scenario: Requisições concorrentes
+- **WHEN** duas gerações simultâneas passam pela checagem inicial com apenas 1 crédito
+- **THEN** só uma é debitada e a outra responde 403
 
 ### Requirement: Pacotes de créditos
 O sistema MUST listar os preços ativos do produto `STRIPE_CREDIT_PRODUCT_ID`, usando `price.metadata.amount` como quantidade de créditos, e MUST ignorar preços sem `amount` válido.

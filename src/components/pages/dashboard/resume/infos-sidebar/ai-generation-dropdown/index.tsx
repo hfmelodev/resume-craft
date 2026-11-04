@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Tooltip } from '@/components/ui/tooltip'
 import { queryKeys } from '@/constants/query-keys'
 import { ApiService } from '@/server/api'
 import { BuyCreditsDialog } from './buy-credits-dialog'
@@ -43,6 +44,8 @@ export function AIGenerationDropdown() {
     queryKey: queryKeys.credits,
     queryFn: () => ApiService.getCredits(),
   })
+
+  const hasCredits = credits !== 0
 
   return (
     <>
@@ -81,12 +84,23 @@ export function AIGenerationDropdown() {
           <DropdownMenuGroup>
             <DropdownMenuLabel>Gerar com IA</DropdownMenuLabel>
 
-            {actions.map(action => (
-              <DropdownMenuItem key={action.label} onClick={action.onClick} disabled={credits === 0}>
-                <action.icon />
-                <span>{action.label}</span>
-              </DropdownMenuItem>
-            ))}
+            {actions.map(action => {
+              const item = (
+                <DropdownMenuItem key={action.label} onClick={action.onClick} disabled={!hasCredits}>
+                  <action.icon />
+                  <span>{action.label}</span>
+                </DropdownMenuItem>
+              )
+
+              if (hasCredits) return item
+
+              // Item desabilitado não recebe eventos de ponteiro, então o tooltip fica num wrapper
+              return (
+                <Tooltip key={action.label} content="Você não possui créditos. Compre créditos para usar a IA.">
+                  <div>{item}</div>
+                </Tooltip>
+              )
+            })}
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
