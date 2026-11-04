@@ -803,6 +803,114 @@
     "ast_hash": "fc3ee320dd1e969a10d29167a5ea3fbb",
     "semantic_hash": ""
   },
+  "openspec/config.yaml": {
+    "mtime": 1793751179.0477703,
+    "seen": 1793752005.8709955,
+    "ast_hash": "fa9c37f6f74c9ae15a3171a3076aeb87",
+    "semantic_hash": ""
+  },
+  ".claude/commands/opsx/apply.md": {
+    "mtime": 1793750990.1220074,
+    "seen": 1793752005.8766465,
+    "ast_hash": "449ed654939d2179ce62e0845707ab35",
+    "semantic_hash": ""
+  },
+  ".claude/commands/opsx/archive.md": {
+    "mtime": 1793750990.1227405,
+    "seen": 1793752005.87665,
+    "ast_hash": "18594057d0fa5e17fb78e48493553625",
+    "semantic_hash": ""
+  },
+  ".claude/commands/opsx/explore.md": {
+    "mtime": 1793750990.1208239,
+    "seen": 1793752005.8766525,
+    "ast_hash": "c5bdf374bfb2bb1902b3a4aacdc3b898",
+    "semantic_hash": ""
+  },
+  ".claude/commands/opsx/propose.md": {
+    "mtime": 1793750990.123189,
+    "seen": 1793752005.8766546,
+    "ast_hash": "43622af941f4617cc53b12af14d6b355",
+    "semantic_hash": ""
+  },
+  ".claude/commands/opsx/sync.md": {
+    "mtime": 1793750990.1222813,
+    "seen": 1793752005.876657,
+    "ast_hash": "7a91922fe8b344d562aa9b5dbeb970e6",
+    "semantic_hash": ""
+  },
+  ".claude/skills/openspec-apply-change/SKILL.md": {
+    "mtime": 1793750990.1199498,
+    "seen": 1793752005.8766587,
+    "ast_hash": "ef62fef14cd5c347e2be60d2af4ea59f",
+    "semantic_hash": ""
+  },
+  ".claude/skills/openspec-archive-change/SKILL.md": {
+    "mtime": 1793750990.1201658,
+    "seen": 1793752005.8766615,
+    "ast_hash": "a853b3ce25149061a7f13f05b127350c",
+    "semantic_hash": ""
+  },
+  ".claude/skills/openspec-explore/SKILL.md": {
+    "mtime": 1793750990.119672,
+    "seen": 1793752005.8766642,
+    "ast_hash": "61496eebbad91c2af8b3e5bf7fc9d256",
+    "semantic_hash": ""
+  },
+  ".claude/skills/openspec-propose/SKILL.md": {
+    "mtime": 1793750990.1208239,
+    "seen": 1793752005.876666,
+    "ast_hash": "5fe13ada44751b3ff94f56c22c383749",
+    "semantic_hash": ""
+  },
+  ".claude/skills/openspec-sync-specs/SKILL.md": {
+    "mtime": 1793750990.1201658,
+    "seen": 1793752005.8766682,
+    "ast_hash": "211bc14ef7cb2d1e24b6b73e878d8509",
+    "semantic_hash": ""
+  },
+  "openspec/specs/ai-credits/spec.md": {
+    "mtime": 1793751179.0687704,
+    "seen": 1793752005.876776,
+    "ast_hash": "fe6dd5ef3de1e5ce63f679c7d8a0572e",
+    "semantic_hash": ""
+  },
+  "openspec/specs/ai-generation/spec.md": {
+    "mtime": 1793751179.0657704,
+    "seen": 1793752005.8767781,
+    "ast_hash": "91e5706ab6bfdf2f9cf4f81f5198ea5c",
+    "semantic_hash": ""
+  },
+  "openspec/specs/authentication/spec.md": {
+    "mtime": 1793751179.0517702,
+    "seen": 1793752005.8767805,
+    "ast_hash": "f687bdc508616b4049075557c975e709",
+    "semantic_hash": ""
+  },
+  "openspec/specs/pdf-export/spec.md": {
+    "mtime": 1793751179.0717704,
+    "seen": 1793752005.8767827,
+    "ast_hash": "bba4a1713633f68476e0132c993510fa",
+    "semantic_hash": ""
+  },
+  "openspec/specs/resume-editor/spec.md": {
+    "mtime": 1793751179.0587704,
+    "seen": 1793752005.8767846,
+    "ast_hash": "39c1b7ad5979ad8b63625708d79fdc51",
+    "semantic_hash": ""
+  },
+  "openspec/specs/resume-management/spec.md": {
+    "mtime": 1793751179.0547702,
+    "seen": 1793752005.8767867,
+    "ast_hash": "0f9be871bef40b19ade5777405dd141b",
+    "semantic_hash": ""
+  },
+  "openspec/specs/resume-structure/spec.md": {
+    "mtime": 1793751179.0617704,
+    "seen": 1793752005.8767889,
+    "ast_hash": "bf7dbe2721f6655c81d07aa54327d937",
+    "semantic_hash": ""
+  },
   "pnpm-lock.yaml": {
     "mtime": 1793750296.38228,
     "seen": 1793750322.3229926,
