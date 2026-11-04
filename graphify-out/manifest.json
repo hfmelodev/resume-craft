@@ -1049,6 +1049,12 @@
     "ast_hash": "41d715ca610ba7d5d50920337988296d",
     "semantic_hash": ""
   },
+  "README.md": {
+    "mtime": 1793822708.8574727,
+    "seen": 1793823638.5443697,
+    "ast_hash": "137ef60662478ed80026ac3da868fdcb",
+    "semantic_hash": ""
+  },
   "pnpm-lock.yaml": {
     "mtime": 1793750296.38228,
     "seen": 1793750322.3229926,
