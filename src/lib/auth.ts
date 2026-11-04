@@ -16,7 +16,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   }),
   // Sessão no cookie (JWT) para não consultar o banco a cada requisição; o adapter segue salvando user/account no login
   session: { strategy: 'jwt' },
-  providers: [GitHub, Google],
+  // Só o Google vincula por e-mail: ele garante e-mail verificado; o GitHub pode entregar e-mail primário não verificado (risco de sequestro de conta)
+  providers: [GitHub, Google({ allowDangerousEmailAccountLinking: true })],
   pages: {
     signIn: '/auth/login',
   },

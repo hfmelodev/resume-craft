@@ -28,3 +28,14 @@ O sistema MUST exigir sessão para `/dashboard/*` e MUST redirecionar usuários 
 #### Scenario: Usuário logado acessa o login
 - **WHEN** um usuário com sessão acessa `/auth/login`
 - **THEN** é redirecionado para `/dashboard/resumes`
+
+### Requirement: Vinculação de contas por e-mail
+O provider Google MUST vincular a conta OAuth ao usuário já existente com o mesmo e-mail (`allowDangerousEmailAccountLinking`), pois o Google entrega e-mail verificado. O provider GitHub MUST NOT vincular por e-mail, porque pode entregar e-mail primário não verificado.
+
+#### Scenario: Login com Google após GitHub
+- **WHEN** um usuário criado via GitHub entra com uma conta Google do mesmo e-mail
+- **THEN** a conta Google é vinculada ao mesmo usuário em `account`, sem erro `OAuthAccountNotLinked`
+
+#### Scenario: Login com GitHub após Google
+- **WHEN** um usuário criado via Google entra com uma conta GitHub do mesmo e-mail
+- **THEN** o login é recusado com `OAuthAccountNotLinked`
