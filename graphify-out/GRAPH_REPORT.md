@@ -1,35 +1,35 @@
-# Graph Report - resume-craft  (2026-11-03)
+# Graph Report - resume-craft  (2026-11-04)
 
 ## Corpus Check
-- 147 files · ~37,720 words
+- 147 files · ~38,392 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 2 file(s) not represented in the graph (top: (none) 1, .css 1)
 
 ## Summary
-- 842 nodes · 1758 edges · 55 communities (39 shown, 16 thin omitted)
+- 848 nodes · 1798 edges · 55 communities (37 shown, 18 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 37 edges (avg confidence: 0.9)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9a41db49`
+- Built from commit: `1e84aebe`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- header.tsx
-- react
-- @auth/drizzle-adapter
-- Button
+- next
+- resume-card.tsx
+- canvas-confetti
+- translate.tsx
 - eevee.tsx
 - shadcn/ui
-- lucide-react
+- shadcn@^4.22.0
 - Button
 - dependencies
 - package.json
 - components.json
 - resume/index.tsx
 - Requirements
-- zod
+- react
 - compilerOptions
 - types.d.ts
 - rules
@@ -50,17 +50,17 @@
 - { GET, POST }
 - auth.ts
 - Requirements
-- resume-card.tsx
+- Tooltip
 - Requirements
-- translate.tsx
+- date-fns
 - openspec-explore/SKILL.md
 - Requirements
 - explore.md
 - pdf-export Specification
 - rules
-- axios
-- canvas-confetti
-- tw-animate-css@^1.4.0
+- mergician
+- @tiptap/extensions
+- @tiptap/starter-kit
 
 ## God Nodes (most connected - your core abstractions)
 1. `Button()` - 48 edges
@@ -79,53 +79,49 @@
   .claude/skills/shadcn/SKILL.md → src/components/ui/badge.tsx
 - `Reach for this first` --references--> `Badge()`  [INFERRED]
   .claude/skills/shadcn/SKILL.md → src/components/ui/badge.tsx
-- `Reach for this first` --references--> `Button()`  [INFERRED]
-  .claude/skills/shadcn/SKILL.md → src/components/ui/button.tsx
-- `Reach for this first` --references--> `DropdownMenu()`  [INFERRED]
-  .claude/skills/shadcn/SKILL.md → src/components/ui/dropdown-menu.tsx
 - `Reach for this first` --references--> `Input()`  [INFERRED]
   .claude/skills/shadcn/SKILL.md → src/components/ui/input/index.tsx
+- `Reach for this first` --references--> `Label()`  [INFERRED]
+  .claude/skills/shadcn/SKILL.md → src/components/ui/label.tsx
+- `Reach for this first` --references--> `Select()`  [INFERRED]
+  .claude/skills/shadcn/SKILL.md → src/components/ui/select.tsx
 
 ## Import Cycles
 - None detected.
 
-## Communities (55 total, 16 thin omitted)
+## Communities (55 total, 18 thin omitted)
 
-### Community 0 - "header.tsx"
-Cohesion: 0.09
-Nodes (31): react-zoom-pan-pinch@^4.2.0, next-themes, react-zoom-pan-pinch, sonner, @tanstack/react-query, geistMono, geistSans, metadata (+23 more)
+### Community 0 - "next"
+Cohesion: 0.10
+Nodes (27): nextConfig, @hookform/resolvers@^5.9.2, @hookform/resolvers, next, GenerationDialogProps, DeleteResumeDialog(), DuplicateResumeDialog(), DuplicateResumeDialogData (+19 more)
 
-### Community 1 - "react"
-Cohesion: 0.07
-Nodes (40): cn@^0.5.0, radix-ui@^1.8.1, @tiptap/react@^3.32.0, cn, radix-ui, react, @tiptap/react, ResumeArrayKeys (+32 more)
+### Community 1 - "resume-card.tsx"
+Cohesion: 0.25
+Nodes (10): DashboardResumesPage(), AddResumeButton(), NewResumeDialog(), ResumeCard(), ResumeCardButton(), ResumeCardButtonProps, ResumeCardProps, ResumesList() (+2 more)
 
-### Community 2 - "@auth/drizzle-adapter"
-Cohesion: 0.20
-Nodes (6): @auth/drizzle-adapter@^1.11.3, postgres@^3.4.9, shadcn@^4.22.0, @auth/drizzle-adapter, postgres, shadcn
+### Community 2 - "canvas-confetti"
+Cohesion: 0.14
+Nodes (8): canvas-confetti@^1.9.4, postgres@^3.4.9, react-resizable-panels@^4.14.6, @tiptap/pm@^3.32.0, canvas-confetti, postgres, react-resizable-panels, @tiptap/pm
 
-### Community 3 - "Button"
-Cohesion: 0.17
-Nodes (16): DuplicateResumeDialog(), DuplicateResumeDialogData, DuplicateResumeDialogProps, DuplicateResumeDialogSchema, Dialog(), DialogProps, Dialog(), DialogContent() (+8 more)
+### Community 3 - "translate.tsx"
+Cohesion: 0.05
+Nodes (46): next-themes, sonner, @tanstack/react-query, geistMono, geistSans, metadata, RootLayout(), BuyCreditsDialogProps (+38 more)
 
 ### Community 4 - "eevee.tsx"
-Cohesion: 0.15
-Nodes (27): Element(), ElementProps, Ditto(), Eevee(), SectionHeading(), SectionHeadingProps, BaseResumeProps, ResumeTemplateProps (+19 more)
+Cohesion: 0.14
+Nodes (29): Element(), ElementProps, Ditto(), Eevee(), SectionHeading(), SectionHeadingProps, BaseResumeProps, ResumeTemplateProps (+21 more)
 
 ### Community 5 - "shadcn/ui"
 Cohesion: 0.06
 Nodes (35): 1. Define registry.json, 2. Build, 3. Consume, Add Components, Avatar Has No `size` Prop, Base UI Support (January 2026), Build (Custom Registry), Building a Custom Registry (+27 more)
 
-### Community 6 - "lucide-react"
-Cohesion: 0.09
-Nodes (30): @hello-pangea/dnd, lucide-react, react-hook-form, InfosSidebar(), MultipleDragItemData, MultipleDragList(), MultipleDragListProps, ResumeArrayItem (+22 more)
-
 ### Community 7 - "Button"
 Cohesion: 0.07
-Nodes (46): nextConfig, next@16.4.2, next, LoginPage(), handleLogin(), Providers, DashboardLayout(), DashboardLayoutProps (+38 more)
+Nodes (47): Reach for this first, radix-ui, LoginPage(), handleLogin(), Providers, DashboardLayout(), DashboardLayoutProps, SessionUserDropdown() (+39 more)
 
 ### Community 8 - "dependencies"
 Cohesion: 0.06
-Nodes (32): dependencies, class-variance-authority@^0.7.1, date-fns@^4.4.0, drizzle-orm@^0.45.4, @hello-pangea/dnd@^18.0.1, @hookform/resolvers@^5.9.2, lucide-react@^1.58.0, next-themes@^0.4.6 (+24 more)
+Nodes (32): dependencies, @auth/drizzle-adapter@^1.11.3, axios@^1.21.0, class-variance-authority@^0.7.1, drizzle-orm@^0.45.4, @hello-pangea/dnd@^18.0.1, lucide-react@^1.58.0, next@16.4.2 (+24 more)
 
 ### Community 9 - "package.json"
 Cohesion: 0.10
@@ -136,16 +132,16 @@ Cohesion: 0.09
 Nodes (21): aliases, components, hooks, lib, ui, utils, iconLibrary, menuAccent (+13 more)
 
 ### Community 11 - "resume/index.tsx"
-Cohesion: 0.14
-Nodes (24): Anti-patterns to avoid, Composition recipes, Default aesthetic for product UI, Design Direction for shadcn on Vercel, Reach for this first, DesktopEditor(), EditorLayoutProps, EditorLoading() (+16 more)
+Cohesion: 0.12
+Nodes (27): Anti-patterns to avoid, Composition recipes, Default aesthetic for product UI, Design Direction for shadcn on Vercel, DashboardResumePage(), ResumeLoader(), ResumeLoaderProps, DesktopEditor() (+19 more)
 
 ### Community 12 - "Requirements"
-Cohesion: 0.11
-Nodes (18): ai-credits Specification, Purpose, Requirement: Checkout, Requirement: Crédito da compra, Requirement: Idempotência, Requirement: Pacotes de créditos, Requirement: Retorno do checkout, Requirement: Saldo de créditos (+10 more)
+Cohesion: 0.09
+Nodes (22): ai-credits Specification, Purpose, Requirement: Checkout, Requirement: Crédito da compra, Requirement: Débito por geração, Requirement: Idempotência, Requirement: Pacotes de créditos, Requirement: Retorno do checkout (+14 more)
 
-### Community 13 - "zod"
-Cohesion: 0.29
-Nodes (10): openai, zod, fixContentSchema, POST(), jobTitleSchema, POST(), POST(), translateSchema (+2 more)
+### Community 13 - "react"
+Cohesion: 0.05
+Nodes (61): cn@^0.5.0, cn, lucide-react, react, react-hook-form, InfosSidebar(), MultipleDragItemData, MultipleDragList() (+53 more)
 
 ### Community 14 - "compilerOptions"
 Cohesion: 0.11
@@ -209,23 +205,19 @@ Nodes (4): author, email, name, url
 
 ### Community 34 - "auth.ts"
 Cohesion: 0.09
-Nodes (33): next-auth@5.0.0-beta.32, drizzle-orm, next-auth, stripe, POST(), GET(), DashboardResumePage(), ResumeLoader() (+25 more)
+Nodes (37): stripe@^23.1.0, drizzle-orm, next-auth, openai, stripe, zod, POST(), GET() (+29 more)
 
 ### Community 35 - "Requirements"
 Cohesion: 0.17
 Nodes (11): ai-generation Specification, Purpose, Requirement: Gerar a partir do cargo, Requirement: Melhorar conteúdo, Requirement: Traduzir conteúdo, Requirement: Tratamento de erros da IA, Requirements, Scenario: Gerar conteúdo para uma vaga (+3 more)
 
-### Community 36 - "resume-card.tsx"
-Cohesion: 0.16
-Nodes (15): DashboardResumesPage(), SkeletonResumesListFallback(), SkeletonUserDropdownFallback(), AddResumeButton(), NewResumeDialog(), NewResumeDialogData, NewResumeDialogSchema, ResumeCard() (+7 more)
+### Community 36 - "Tooltip"
+Cohesion: 0.18
+Nodes (15): react-zoom-pan-pinch, TransformControls(), TransformControlsProps, NavigationHeader(), ResumeContent(), ResumeContentProps, ResumeTemplate(), MenuBar() (+7 more)
 
 ### Community 37 - "Requirements"
 Cohesion: 0.17
 Nodes (11): Purpose, Requirement: Cor de tema, Requirement: Idioma do currículo, Requirement: Layout das seções, Requirement: Templates, Requirements, resume-structure Specification, Scenario: Mover seção para a lateral (+3 more)
-
-### Community 38 - "translate.tsx"
-Cohesion: 0.06
-Nodes (31): mergician@^2.0.2, mergician, GenerationToFixContent(), GenerationToFixContentProps, GenerationDialogProps, GenerationData, GenerationFromJobTitle(), GenerationFromJobTitleProps (+23 more)
 
 ### Community 39 - "openspec-explore/SKILL.md"
 Cohesion: 0.18
@@ -249,23 +241,23 @@ Nodes (6): context, rules, proposal, specs, tasks, schema
 
 ## Knowledge Gaps
 - **1 isolated node(s):** `{ GET, POST }`
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 356 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 359 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **18 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `react` to `header.tsx`, `auth.ts`, `Button`, `resume-card.tsx`, `eevee.tsx`, `translate.tsx`, `Button`, `dependencies`, `package.json`, `lucide-react`, `resume/index.tsx`?**
-  _High betweenness centrality (0.110) - this node is a cross-community bridge._
+- **Why does `react` connect `react` to `next`, `resume-card.tsx`, `auth.ts`, `translate.tsx`, `Tooltip`, `eevee.tsx`, `Button`, `dependencies`, `package.json`, `resume/index.tsx`?**
+  _High betweenness centrality (0.109) - this node is a cross-community bridge._
 - **What connects `{ GET, POST }` to the rest of the system?**
   _1 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `header.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.08773784355179703 - nodes in this community are weakly interconnected._
-- **Why does `lucide-react` connect `lucide-react` to `header.tsx`, `react`, `auth.ts`, `Button`, `eevee.tsx`, `resume-card.tsx`, `translate.tsx`, `Button`, `dependencies`, `package.json`, `resume/index.tsx`?**
-  _High betweenness centrality (0.061) - this node is a cross-community bridge._
-- **Should `react` be split into smaller, more focused modules?**
-  _Cohesion score 0.07142857142857142 - nodes in this community are weakly interconnected._
-- **Why does `Button()` connect `Button` to `header.tsx`, `react`, `auth.ts`, `Button`, `resume-card.tsx`, `translate.tsx`, `lucide-react`, `resume/index.tsx`?**
-  _High betweenness centrality (0.057) - this node is a cross-community bridge._
-- **Should `shadcn/ui` be split into smaller, more focused modules?**
-  _Cohesion score 0.05555555555555555 - nodes in this community are weakly interconnected._
+- **Should `next` be split into smaller, more focused modules?**
+  _Cohesion score 0.09815078236130868 - nodes in this community are weakly interconnected._
+- **Why does `lucide-react` connect `react` to `next`, `resume-card.tsx`, `translate.tsx`, `Tooltip`, `eevee.tsx`, `Button`, `dependencies`, `package.json`, `resume/index.tsx`?**
+  _High betweenness centrality (0.059) - this node is a cross-community bridge._
+- **Should `canvas-confetti` be split into smaller, more focused modules?**
+  _Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected._
+- **Why does `Button()` connect `Button` to `next`, `resume-card.tsx`, `translate.tsx`, `Tooltip`, `react`?**
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
+- **Should `translate.tsx` be split into smaller, more focused modules?**
+  _Cohesion score 0.05189189189189189 - nodes in this community are weakly interconnected._

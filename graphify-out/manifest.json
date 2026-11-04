@@ -60,21 +60,21 @@
     "semantic_hash": ""
   },
   "src/app/api/generate/fix-content/route.ts": {
-    "mtime": 1793477464.020979,
-    "seen": 1793709402.0431664,
-    "ast_hash": "980533aa329054e2d8e82aa3dc47c6d8",
+    "mtime": 1793801697.259904,
+    "seen": 1793801716.6365902,
+    "ast_hash": "42113bed5a7f6226a5394d86f0e92573",
     "semantic_hash": ""
   },
   "src/app/api/generate/job-title/route.ts": {
-    "mtime": 1793452656.3291087,
-    "seen": 1793709402.043168,
-    "ast_hash": "0e11426ee7eb03be75f1384d927a2360",
+    "mtime": 1793801697.2600534,
+    "seen": 1793801716.636592,
+    "ast_hash": "84f8812af8bac533a4f697e27f7bd6a3",
     "semantic_hash": ""
   },
   "src/app/api/generate/translate/route.ts": {
-    "mtime": 1793478732.1611102,
-    "seen": 1793709402.0431693,
-    "ast_hash": "d88e43d5ea3d4e8fbf59c985227a1d6d",
+    "mtime": 1793801697.2601275,
+    "seen": 1793801716.6365929,
+    "ast_hash": "6b5166a14741c5bf1dafecc63b8ce0fa",
     "semantic_hash": ""
   },
   "src/app/api/resume/download/route.ts": {
@@ -156,9 +156,9 @@
     "semantic_hash": ""
   },
   "src/components/pages/dashboard/resume/infos-sidebar/ai-generation-dropdown/generation-dialog/fix-content.tsx": {
-    "mtime": 1793479911.480381,
-    "seen": 1793709402.043186,
-    "ast_hash": "ab68e8ce33fb9574b9dff769b64eec48",
+    "mtime": 1793801841.594945,
+    "seen": 1793801849.1862392,
+    "ast_hash": "18adbf4188df4a801c62bc762d0d74a9",
     "semantic_hash": ""
   },
   "src/components/pages/dashboard/resume/infos-sidebar/ai-generation-dropdown/generation-dialog/index.tsx": {
@@ -168,21 +168,21 @@
     "semantic_hash": ""
   },
   "src/components/pages/dashboard/resume/infos-sidebar/ai-generation-dropdown/generation-dialog/job-title.tsx": {
-    "mtime": 1793479911.4804225,
-    "seen": 1793709402.0431879,
-    "ast_hash": "abcfa6e2dbbe11ebddb5fd13ed71f1a8",
+    "mtime": 1793801841.595046,
+    "seen": 1793801849.1862636,
+    "ast_hash": "b5a4b6d660be6da14bc7f6d1e5e28fd0",
     "semantic_hash": ""
   },
   "src/components/pages/dashboard/resume/infos-sidebar/ai-generation-dropdown/generation-dialog/translate.tsx": {
-    "mtime": 1793479911.48046,
-    "seen": 1793709402.0431893,
-    "ast_hash": "2e0bc4ee432116ff6cd403fab2e557f5",
+    "mtime": 1793801841.595112,
+    "seen": 1793801849.1862645,
+    "ast_hash": "f46dd6ea21b3f63c84d9889372a4f91e",
     "semantic_hash": ""
   },
   "src/components/pages/dashboard/resume/infos-sidebar/ai-generation-dropdown/index.tsx": {
-    "mtime": 1793717573.1556585,
-    "seen": 1793724354.9553864,
-    "ast_hash": "77e7e702e62827fca9a53ee1c0037d71",
+    "mtime": 1793797477.1130838,
+    "seen": 1793797491.1866755,
+    "ast_hash": "7cf6d850261b994fc1533f85ef1a22e8",
     "semantic_hash": ""
   },
   "src/components/pages/dashboard/resume/infos-sidebar/index.tsx": {
@@ -564,15 +564,15 @@
     "semantic_hash": ""
   },
   "src/db/actions.ts": {
-    "mtime": 1793363981.590945,
-    "seen": 1793709402.0432677,
+    "mtime": 1793801682.2289028,
+    "seen": 1793801716.6380916,
     "ast_hash": "6b5194ea72ed9f11fbdeea90d0eca5b4",
     "semantic_hash": ""
   },
   "src/db/dals.ts": {
-    "mtime": 1793715876.819074,
-    "seen": 1793716085.4462883,
-    "ast_hash": "8cb36d299d9cfa0529e2b740eb7ebdd2",
+    "mtime": 1793801687.0569441,
+    "seen": 1793801716.638093,
+    "ast_hash": "c8ce8965d58c0236b416a96c82a770de",
     "semantic_hash": ""
   },
   "src/db/drizzle.ts": {
@@ -630,9 +630,9 @@
     "semantic_hash": ""
   },
   "src/lib/axios.ts": {
-    "mtime": 1793728021.7970102,
-    "seen": 1793728029.6198637,
-    "ast_hash": "54773461d0aae9a1e8d9b9b6f169369e",
+    "mtime": 1793801837.657202,
+    "seen": 1793801849.1879365,
+    "ast_hash": "92d7fbfd61426abab67be5b6df21f2a1",
     "semantic_hash": ""
   },
   "src/lib/openai.ts": {
@@ -870,9 +870,9 @@
     "semantic_hash": ""
   },
   "openspec/specs/ai-credits/spec.md": {
-    "mtime": 1793751179.0687704,
-    "seen": 1793752005.876776,
-    "ast_hash": "fe6dd5ef3de1e5ce63f679c7d8a0572e",
+    "mtime": 1793802112.8793871,
+    "seen": 1793802117.3478127,
+    "ast_hash": "ed6e5de0fee0f2f4c533b9d570c2a0d1",
     "semantic_hash": ""
   },
   "openspec/specs/ai-generation/spec.md": {
