@@ -1,6 +1,7 @@
 'use client'
 
 import { Menu } from 'lucide-react'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { type ReactNode, useState } from 'react'
 import Logo from '@/assets/logo.svg'
@@ -34,7 +35,9 @@ export function MobileNav({ userDropdown }: MobileNavProps) {
           <SheetContent side="left" className="w-75 max-w-[85vw] gap-0">
             <SheetHeader className="border-muted border-b px-4 py-3">
               <SheetTitle>
-                <Logo className="max-w-25" role="img" aria-label="Resume Craft" />
+                <Link href="/" className="block w-25">
+                  <Logo className="w-full" role="img" aria-label="Resume Craft" />
+                </Link>
               </SheetTitle>
               <SheetDescription className="sr-only">Navegação do painel</SheetDescription>
             </SheetHeader>
@@ -51,7 +54,9 @@ export function MobileNav({ userDropdown }: MobileNavProps) {
           </SheetContent>
         </Sheet>
 
-        <Logo className="max-w-22.5" role="img" aria-label="Resume Craft" />
+        <Link href="/" className="block w-22.5">
+          <Logo className="w-full" role="img" aria-label="Resume Craft" />
+        </Link>
       </div>
     </header>
   )

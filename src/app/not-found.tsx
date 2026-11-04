@@ -6,7 +6,7 @@ import { ThemeToggle } from '@/components/shared/theme-toggle'
 import { Button } from '@/components/ui/button'
 
 export const metadata: Metadata = {
-  title: 'Página não encontrada | Resume Craft',
+  title: 'Página não encontrada',
 }
 
 export default function NotFound() {

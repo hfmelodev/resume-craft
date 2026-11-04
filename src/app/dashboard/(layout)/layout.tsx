@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Suspense } from 'react'
 import Logo from '@/assets/logo.svg'
 import { MobileNav } from '@/components/pages/dashboard/mobile-nav'
@@ -6,6 +8,11 @@ import { UserDropdown } from '@/components/pages/dashboard/user-dropdown'
 import { ThemeToggle } from '@/components/shared/theme-toggle'
 import { getSession } from '@/db/dals'
 import { SkeletonUserDropdownFallback } from './skeleton'
+
+// Área logada: não deve aparecer em buscadores
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
 
 type DashboardLayoutProps = {
   children: React.ReactNode
@@ -26,7 +33,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <aside className="hidden h-full w-full flex-col items-center border-muted border-r lg:flex">
         <div className="w-full border-muted border-b py-2.5">
           {/* COMP: Logo */}
-          <Logo className="mx-auto max-w-25" role="img" aria-label="Resume Craft" />
+          <Link href="/" className="mx-auto block w-25">
+            <Logo className="w-full" role="img" aria-label="Resume Craft" />
+          </Link>
         </div>
 
         {/* COMP: Nav Items */}

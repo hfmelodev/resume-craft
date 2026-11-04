@@ -16,7 +16,7 @@ context: |
   - Biome para lint/format; variáveis de ambiente validadas com zod em src/env.ts
 
   Organização:
-  - src/app: rotas (dashboard/resumes, dashboard/resumes/[id], auth/login) e API (api/generate/*, api/credits/*, api/resume/download, api/webhooks/stripe)
+  - src/app: rotas (/ landing em components/pages/landing, dashboard/resumes, dashboard/resumes/[id], dashboard/account, auth/login; robots, sitemap e manifest) e API (api/generate/*, api/credits/*, api/resume/download, api/webhooks/stripe)
   - src/db: schema.ts, dals.ts (leituras com cache() por request), actions.ts (server actions de escrita)
   - src/components/pages/dashboard/resume: infos-sidebar (conteúdo), resume-content (preview e templates), structure-sidebar (template, cor, layout, idioma)
   - Tipos de domínio globais em src/@types/types.d.ts (ResumeData = content + structure)

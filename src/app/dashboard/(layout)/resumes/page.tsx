@@ -1,6 +1,11 @@
+import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { ResumesList } from '@/components/pages/dashboard/resumes/resumes-list'
 import { SkeletonResumesListFallback } from './skeleton'
+
+export const metadata: Metadata = {
+  title: 'Currículos',
+}
 
 export default function DashboardResumesPage() {
   return (
