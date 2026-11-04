@@ -1,0 +1,37 @@
+schema: spec-driven
+
+context: |
+  Produto: ResumeCraft, editor de currículos com preview ao vivo, templates, geração de conteúdo por IA e exportação em PDF.
+  Idioma: toda a UI, mensagens de erro, comentários e commits em português do Brasil (conventional commits).
+
+  Stack:
+  - Next.js 16 (App Router, Cache Components/PPR, React Compiler), React 19, TypeScript, pnpm
+  - Auth.js (next-auth v5) com GitHub e Google, sessão JWT, DrizzleAdapter; proteção de rotas em src/proxy.ts
+  - Drizzle ORM + Postgres (Supabase; pooler em modo Transaction com prepare: false; drizzle-kit usa DIRECT_URL); migrations em src/db/migrations
+  - Tailwind CSS v4, shadcn/ui (radix-ui), lucide-react, cva, sonner, react-hook-form + zod, TanStack Query, axios
+  - Tiptap (rich text), @hello-pangea/dnd (drag and drop), react-zoom-pan-pinch (preview)
+  - OpenAI (gpt-4.1-mini, response_format json_object) para geração de conteúdo
+  - Stripe (Checkout em modo payment + webhook) para pacotes de créditos de IA
+  - Puppeteer (@sparticuz/chromium na Vercel) para gerar PDF
+  - Biome para lint/format; variáveis de ambiente validadas com zod em src/env.ts
+
+  Organização:
+  - src/app: rotas (dashboard/resumes, dashboard/resumes/[id], auth/login) e API (api/generate/*, api/credits/*, api/resume/download, api/webhooks/stripe)
+  - src/db: schema.ts, dals.ts (leituras com cache() por request), actions.ts (server actions de escrita)
+  - src/components/pages/dashboard/resume: infos-sidebar (conteúdo), resume-content (preview e templates), structure-sidebar (template, cor, layout, idioma)
+  - Tipos de domínio globais em src/@types/types.d.ts (ResumeData = content + structure)
+
+  Convenções:
+  - Toda leitura/escrita de currículo filtra por userId da sessão
+  - Tabelas com RLS ligado (sem policies); o Drizzle conecta como postgres
+  - Componentes cva usam NonNullable nas variantes
+  - Grafo de conhecimento em graphify-out/: consultar com `graphify query` antes de explorar código; rodar `graphify update .` após mudanças
+  - Verificação: pnpm exec tsc --noEmit, pnpm biome check --write, pnpm build
+
+rules:
+  proposal:
+    - Escrever em português do Brasil
+  specs:
+    - Escrever em português do Brasil, mantendo as palavras normativas SHALL/MUST exigidas pelo validador
+  tasks:
+    - Incluir as tarefas de verificação (tsc, biome, build) e graphify update ao final
