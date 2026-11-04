@@ -3,6 +3,7 @@ import { LoaderCircle } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Dialog } from '@/components/ui/dialog'
+import { Skeleton } from '@/components/ui/skeleton'
 import { queryKeys } from '@/constants/query-keys'
 import { ApiService } from '@/server/api'
 
@@ -14,7 +15,7 @@ type BuyCreditsDialogProps = {
 export function BuyCreditsDialog({ open, setOpen }: BuyCreditsDialogProps) {
   const pathname = usePathname()
 
-  const { data: packages = [] } = useQuery({
+  const { data: packages = [], isLoading: isLoadingPackages } = useQuery({
     queryKey: queryKeys.packages,
     queryFn: () => ApiService.getPackageCredits(),
     select: prices =>
@@ -34,7 +35,8 @@ export function BuyCreditsDialog({ open, setOpen }: BuyCreditsDialogProps) {
 
   const {
     mutate: createCheckoutSession,
-    isPending: isCreatingCheckout,
+    isPending,
+    isSuccess,
     variables: pendingPriceId,
   } = useMutation({
     mutationFn: (priceId: string) => ApiService.getCheckoutUrl(priceId, pathname),
@@ -45,6 +47,9 @@ export function BuyCreditsDialog({ open, setOpen }: BuyCreditsDialogProps) {
     },
   })
 
+  // mantém o loading após o sucesso, até o navegador concluir o redirect
+  const isCreatingCheckout = isPending || isSuccess
+
   return (
     <Dialog
       open={open}
@@ -52,7 +57,10 @@ export function BuyCreditsDialog({ open, setOpen }: BuyCreditsDialogProps) {
       title="Comprar créditos"
       description="Escolha um dos pacotes abaixo para comprar créditos e começar a gerar!"
       content={
-        <div className="grid gap-3">
+        <div className="grid gap-3" aria-busy={isLoadingPackages}>
+          {isLoadingPackages &&
+            Array.from({ length: 3 }, (_, i) => <Skeleton key={i} aria-label="Carregando pacotes" className="h-17 w-full" />)}
+
           {packages.map(pkg => (
             <Button
               key={pkg.id}

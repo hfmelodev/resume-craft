@@ -63,6 +63,12 @@ async function getCheckoutUrl(priceId: string, currentPathname: string) {
   return data
 }
 
+async function getTransactions(currentPathname: string) {
+  const { data } = await API.post<{ url: string }>('/credits/transactions', { currentPathname })
+
+  return data.url
+}
+
 export const ApiService = {
   getResumeUrl,
   generateContentForJob,
@@ -71,4 +77,5 @@ export const ApiService = {
   getCredits,
   getPackageCredits,
   getCheckoutUrl,
+  getTransactions,
 }
