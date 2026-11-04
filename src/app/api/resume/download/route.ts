@@ -1,5 +1,6 @@
 import chromium from '@sparticuz/chromium'
 import puppeteer, { type Browser } from 'puppeteer-core'
+import { getSession } from '@/db/dals'
 import { formatTailwindHTML } from '@/lib/utils'
 
 // Na Vercel usa o Chromium enxuto do @sparticuz/chromium; localmente usa o Chrome baixado pelo puppeteer (devDependency)
@@ -21,6 +22,13 @@ export const POST = async (request: Request) => {
   let browser: Browser | undefined
 
   try {
+    // O proxy só cobre /dashboard e /auth; sem esta checagem qualquer um abriria um Chromium no servidor
+    const session = await getSession()
+
+    if (!session?.user?.id) {
+      return Response.json({ message: 'Você precisa estar logado para baixar o currículo.' }, { status: 401 })
+    }
+
     const body = await request.json()
 
     const { html, structure } = body
