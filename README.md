@@ -158,7 +158,7 @@ Callbacks OAuth em desenvolvimento:
 | Comando | Descrição |
 | --- | --- |
 | `pnpm dev` | Servidor de desenvolvimento |
-| `pnpm build` | Build de produção |
+| `pnpm build` | Build de produção (na Vercel em produção, aplica as migrations antes) |
 | `pnpm start` | Servidor de produção |
 | `pnpm lint` | Lint e checagem com Biome |
 | `pnpm format` | Formata o código com Biome |
@@ -198,7 +198,7 @@ O projeto foi pensado para a [Vercel](https://vercel.com):
 2. Cadastre todas as [variáveis de ambiente](#variáveis-de-ambiente), com `NEXT_PUBLIC_APP_URL` apontando para o domínio de produção.
 3. Atualize os callbacks OAuth do GitHub e do Google para o domínio de produção.
 4. Crie um endpoint de webhook no Stripe para `https://<seu-dominio>/api/webhooks/stripe` com os eventos `checkout.session.completed` e `checkout.session.async_payment_succeeded`. Use o segredo gerado em `STRIPE_WEBHOOK_SECRET`.
-5. Aplique as migrations no banco de produção com `pnpm db:migrate`.
+5. As migrations rodam sozinhas no build de produção (`VERCEL_ENV=production`): o `pnpm build` executa `drizzle-kit migrate` antes do `next build`. Previews e builds locais não migram. Gere e commite as migrations com `pnpm db:generate` antes do push.
 
 ## Autor
 
