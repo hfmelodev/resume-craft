@@ -93,8 +93,14 @@ export const resumes = pgTable('resumes', {
   updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull().defaultNow(),
 })
 
+// Sessões de checkout já creditadas: o Stripe pode reenviar eventos, e a PK impede creditar a mesma compra duas vezes
+export const processedCheckoutSessions = pgTable('processedCheckoutSession', {
+  sessionId: text('sessionId').primaryKey(),
+  createdAt: timestamp('createdAt', { mode: 'date' }).notNull().defaultNow(),
+})
+
 // RLS sem policies bloqueia a Data API do Supabase (anon/authenticated); o Drizzle conecta como postgres e não é afetado.
 // enableRLS() marca a própria tabela: encadeado na definição, o retorno perde o método no tipo e quebra a tipagem do DrizzleAdapter
-for (const table of [users, accounts, sessions, verificationTokens, authenticators, resumes]) {
+for (const table of [users, accounts, sessions, verificationTokens, authenticators, resumes, processedCheckoutSessions]) {
   table.enableRLS()
 }
