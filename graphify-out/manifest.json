@@ -78,9 +78,9 @@
     "semantic_hash": ""
   },
   "src/app/api/resume/download/route.ts": {
-    "mtime": 1793306307.8544965,
-    "seen": 1793709402.0431702,
-    "ast_hash": "1000e783f2a0537598a99315a9f898e1",
+    "mtime": 1793802203.2520819,
+    "seen": 1793802234.604463,
+    "ast_hash": "02dc385c4bcfe5a3dd1b6853924f7001",
     "semantic_hash": ""
   },
   "src/app/auth/login/page.tsx": {
@@ -888,9 +888,9 @@
     "semantic_hash": ""
   },
   "openspec/specs/pdf-export/spec.md": {
-    "mtime": 1793751179.0717704,
-    "seen": 1793752005.8767827,
-    "ast_hash": "bba4a1713633f68476e0132c993510fa",
+    "mtime": 1793802205.483099,
+    "seen": 1793802234.6090453,
+    "ast_hash": "852e0c059a1cfa286db0863ad9650db2",
     "semantic_hash": ""
   },
   "openspec/specs/resume-editor/spec.md": {
